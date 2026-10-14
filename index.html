@@ -95,6 +95,14 @@
         .grid-item span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-bottom: 12px; }
         .grid-item p { color: #555; font-size: 13px; margin: 0; }
 
+        /* Team Directory Styles */
+        .team-category { margin-bottom: 60px; }
+        .team-category h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--taupe); border-bottom: 1px solid var(--thin-border); padding-bottom: 15px; margin-bottom: 30px; font-family: 'Montserrat', sans-serif; font-weight: 400; }
+        .team-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .team-member h4 { font-size: 22px; margin-bottom: 5px; }
+        .team-member span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--obsidian); margin-bottom: 12px; font-weight: 500; }
+        .team-member p { color: #555; font-size: 13px; margin: 0; line-height: 1.6; }
+
         .winery-logo { height: 80px; width: auto; max-width: 200px; object-fit: contain; object-position: left center; margin-bottom: 15px; opacity: 0.9; transition: opacity 0.3s ease, filter 0.3s ease; filter: grayscale(100%); }
         .winery-logo:hover { opacity: 1; filter: grayscale(0%); }
 
@@ -182,6 +190,7 @@
             .split-img-wrapper { width: 47%; margin-bottom: 0; }
             .split-content { width: 45%; padding: 0 20px; }
             .minimal-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; padding-top: 40px; }
+            .team-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
             .allocation-box { padding: 50px; margin-top: 60px; }
             #accolades blockquote p { font-size: 24px; padding-left: 30px; }
             #accolades blockquote span { padding-left: 30px; }
@@ -209,7 +218,8 @@
             <a href="#heritage">Heritage</a>
             <a href="#farming">Viticulture</a>
             <a href="#blocks">Terroir</a>
-            <a href="#wines">Wines & Accolades</a>
+            <a href="#wines">Wines</a>
+            <a href="#family">The Family</a>
         </nav>
     </header>
 
@@ -227,7 +237,7 @@
         </a>
     </section>
 
-    <!-- SECTION 1: HERITAGE (Immigrant Story & Family Grid) -->
+    <!-- SECTION 1: HERITAGE -->
     <section id="heritage">
         <div class="container">
             <div class="section-header fade-in">
@@ -235,7 +245,7 @@
                 <h2>A Century on the Lakeville Ranch</h2>
             </div>
             
-            <div class="editorial-split fade-in">
+            <div class="editorial-split fade-in" style="margin-bottom: 0;">
                 <div class="split-img-wrapper">
                     <img src="flocchinifamily.jpeg" alt="Flocchini Family Portrait" loading="lazy">
                     <div class="img-caption">Left to right: Maria, Madeline (Lena), James, Andrew, Nicholas, Anna, Frank</div>
@@ -248,63 +258,10 @@
                     <p>Family lore remembers the purchase as a risky gamble. When Frank bought the property, locals openly laughed at the choice, dismissing it as terrible ground where only star thistle could grow. Yet, where others saw a barren paddock, Frank saw a future. He returned to Italy to marry his wife, Maria, and together they raised five children and proved the skeptics wrong. For decades, the property thrived as a traditional family dairy farm, with natural cow manure quietly building a deep layer of organic richness year after year.</p>
                 </div>
             </div>
-
-            <div class="section-header fade-in" style="margin-top: 80px; margin-bottom: 40px;">
-                <span style="color: var(--taupe);">The Team</span>
-                <h3 style="font-size: 32px;">Generational Stewardship</h3>
-            </div>
-            
-            <div class="minimal-grid fade-in">
-                <div class="grid-item">
-                    <h4>Andrew Flocchini</h4>
-                    <span>Veteran Viticulturist and Elder Statesman</span>
-                    <p>A son of Frank and Maria, Andrew anchors our estate with over 25 years of definitive wine grape growing knowledge. He is the living memory of our soil and ensures strict row-by-row quality control.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Jordan James</h4>
-                    <span>Winery Relations & Operations</span>
-                    <p>Great-grandson of our founding pioneers, Jordan connects our vineyard with independent winemakers, managing fruit contracts and estate logistics.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Elizabeth Flocchini-Curtis, EA</h4>
-                    <span>Estate Accountant & Compliance</span>
-                    <p>A granddaughter of Frank and Maria and a practicing Enrolled Agent (EA), Liz directs the financial backbone of the family business to ensure long-term economic stability.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Joe Flocchini</h4>
-                    <span>Farm Operations & Land Logistics</span>
-                    <p>A grandson of Frank and Maria, Joe keeps our agricultural foundation running smoothly, managing the operational flow and equipment that maintain the health of our acreage.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>James Flocchini</h4>
-                    <span>Estate Projects & Upgrades</span>
-                    <p>A grandson of Frank and Maria, James handles property maintenance, estate upgrades, and digital initiatives to safeguard our legacy.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Lena Flocchini</h4>
-                    <span>Shareholder</span>
-                    <p>Daughter of Frank and Maria, Lena supports the business from out of state. Her dedication to our shared heritage ensures the family vision remains unified.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Anna Flocchini</h4>
-                    <span>Shareholder</span>
-                    <p>Daughter of Frank and Maria, Anna has lived her entire life on the family farm. She provides a living bridge to our history, maintaining our deep emotional anchor to this land.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>Nicholas Flocchini</h4>
-                    <span>In Memoriam & Co-Founder</span>
-                    <p>Son of Frank and Maria. Nick's lifelong dedication and agricultural wisdom laid the bedrock of our modern vineyard. We carry forward his exact high standards.</p>
-                </div>
-                <div class="grid-item">
-                    <h4>James Flocchini</h4>
-                    <span>In Memoriam & Shareholder</span>
-                    <p>Son of Frank and Maria. James was a dedicated shareholder who passed away in 2015. His contribution remains an integral part of our generational footprint.</p>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- SECTION 2: FARMING (Soil Prep & Regenerative Practices) -->
+    <!-- SECTION 2: FARMING -->
     <section id="farming" class="bg-alabaster">
         <div class="container">
             <div class="section-header fade-in">
@@ -343,7 +300,7 @@
         </div>
     </section>
 
-    <!-- SECTION 3: TERROIR & BLOCKS (Map & Sales) -->
+    <!-- SECTION 3: TERROIR & BLOCKS -->
     <section id="blocks">
         <div class="container">
             <div class="section-header fade-in">
@@ -363,7 +320,7 @@
 
                     <div class="minimal-grid" style="border: none; padding-top: 0; display: block;">
                         <div class="grid-item" style="margin-bottom: 30px;">
-                            <h4>Chardonnay (~50 Tons)</h4>
+                            <h4>Chardonnay (~45 Tons)</h4>
                             <span>Wente & Robert Young</span>
                             <p>Produces a strong natural core, marked by bright acidity and a distinct chalky minerality.</p>
                         </div>
@@ -450,6 +407,79 @@
                     <p>"The Lakeville corridor is quickly becoming the epicentre for California's most compelling cool-climate Syrah. Grapes grown here benefit from an unforgiving wind that thickens skins and concentrates phenolics, producing dark-fruited, pepper-laced wines that mirror the great, savory Northern Rhône classics."</p>
                     <span>- Petaluma Gap Winegrowers Spotlight</span>
                 </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: FAMILY DIRECTORY -->
+    <section id="family">
+        <div class="container fade-in">
+            <div class="section-header">
+                <span>The Hands Behind The Vines</span>
+                <h2>Generational Stewardship</h2>
+            </div>
+            
+            <div class="team-category">
+                <h3>Estate Operations</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <h4>Andrew Flocchini</h4>
+                        <span>Veteran Viticulturist & Elder Statesman</span>
+                        <p>A son of Frank and Maria, Andrew anchors our estate with over 25 years of definitive wine grape growing knowledge. He is the living memory of our soil and ensures strict row-by-row quality control.</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>Jordan James</h4>
+                        <span>Winery Relations & Operations</span>
+                        <p>Great-grandson of our founding pioneers, Jordan connects our vineyard with independent winemakers, managing fruit contracts and estate logistics.</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>Elizabeth Flocchini-Curtis, EA</h4>
+                        <span>Estate Accountant & Compliance</span>
+                        <p>A granddaughter of Frank and Maria and a practicing Enrolled Agent (EA), Liz directs the financial backbone of the family business to ensure long-term economic stability.</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>Joe Flocchini</h4>
+                        <span>Farm Operations & Land Logistics</span>
+                        <p>A grandson of Frank and Maria, Joe keeps our agricultural foundation running smoothly, managing the operational flow and equipment that maintain the health of our acreage.</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>James Flocchini</h4>
+                        <span>Estate Projects & Upgrades</span>
+                        <p>A grandson of Frank and Maria, James handles property maintenance, estate upgrades, and digital initiatives to safeguard our legacy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-category">
+                <h3>Family Shareholders</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <h4>Lena Flocchini</h4>
+                        <span>Shareholder</span>
+                        <p>Daughter of Frank and Maria, Lena supports the business from out of state. Her dedication to our shared heritage ensures the family vision remains unified.</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>Anna Flocchini</h4>
+                        <span>Shareholder</span>
+                        <p>Daughter of Frank and Maria, Anna has lived her entire life on the family farm. She provides a living bridge to our history, maintaining our deep emotional anchor to this land.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-category" style="margin-bottom: 0;">
+                <h3>In Memoriam</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <h4>Nicholas Flocchini</h4>
+                        <span>In Memoriam & Co-Founder</span>
+                        <p>Son of Frank and Maria. Nick's lifelong dedication and agricultural wisdom laid the bedrock of our modern vineyard. We carry forward his exact high standards.</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>James Flocchini</h4>
+                        <span>In Memoriam & Shareholder</span>
+                        <p>Son of Frank and Maria. James was a dedicated shareholder who passed away in 2015. His contribution remains an integral part of our generational footprint.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -544,7 +574,7 @@
             { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.32", yieldPerAcre: "3.75", tonnage: "4.5", soil: "Huichica Loam / Steinbeck Complex" },
             { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.55", yieldPerAcre: "3.75", tonnage: "5.5", soil: "Huichica Loam / Steinbeck Complex" },
             { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", yieldPerAcre: "2.50", tonnage: "4.0", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", yieldPerAcre: "3.75", tonnage: "10.0", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", yieldPerAcre: "2.50", tonnage: "6.5", soil: "Huichica Loam / Steinbeck Complex" },
             { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Wente", acreage: "1.72", yieldPerAcre: "3.75", tonnage: "6.0", soil: "Clear Lake Clay / Reyes Silty Clay" },
             { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", varietal: "Chardonnay", clone: "Wente", acreage: "1.64", yieldPerAcre: "3.75", tonnage: "6.0", soil: "Clear Lake Clay / Reyes Silty Clay" },
             { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", varietal: "Pinot Noir", clone: "Swan", acreage: "1.94", yieldPerAcre: "4.00", tonnage: "7.5", soil: "Clear Lake Clay / Reyes Silty Clay" },
@@ -735,18 +765,15 @@
             const topoLayers = ['hillshade-layer', 'contour-lines-minor', 'contour-lines-major', 'contour-labels'];
             
             if (isTopoVisible) {
-                // Turn on 3D terrain exaggeration, hillshading, and contours
                 map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
                 topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'visible'));
                 
-                // Tilt the map to 65 degrees to show off the 3D slope
                 map.easeTo({ pitch: 65, bearing: -20, duration: 1500 });
                 
                 topoToggleBtn.style.background = 'var(--obsidian)';
                 topoToggleBtn.style.color = 'var(--white)';
                 topoToggleBtn.innerText = 'Hide Topography';
             } else {
-                // Turn off 3D terrain and flatten map
                 map.setTerrain(null);
                 topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'none'));
                 

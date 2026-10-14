@@ -3,260 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flocchini Estate Vineyards | Petaluma Gap Wine Grapes</title>
-    
-    <!-- Mapbox GL JS for the Block Map -->
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
-
+    <title>Flocchini Estate & Vineyard</title>
     <style>
         :root {
             --primary-dark: #2c3e2d;
             --text-main: #333333;
             --bg-light: #f9f9f6;
-            --accent-gold: #8c6d46;
-            --border-color: #e2e0d8;
+            --accent-gold: #c5a880;
         }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Georgia', serif;
-            line-height: 1.7;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
             color: var(--text-main);
             background-color: var(--bg-light);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
-
-        h1, h2, h3, h4, th, .sans {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-
-        /* Hero Header */
         header {
-            background: linear-gradient(rgba(28, 42, 30, 0.65), rgba(28, 42, 30, 0.75)), url('dormantvine.jpg') center/cover no-repeat;
             background-color: var(--primary-dark);
             color: white;
             text-align: center;
-            padding: 5rem 1.5rem;
+            padding: 4rem 2rem;
         }
-
         header h1 {
-            font-size: 2.6rem;
+            font-size: 3rem;
             margin: 0 0 1rem 0;
             letter-spacing: 2px;
             font-weight: 300;
-            text-transform: uppercase;
         }
-
         header p {
-            font-size: 1.1rem;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.2rem;
             font-weight: 300;
-            max-width: 760px;
+            max-width: 600px;
             margin: 0 auto;
-            color: #eaeaea;
-            line-height: 1.6;
+            color: #e0e0e0;
         }
-
         .container {
-            max-width: 1140px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 3.5rem 1.5rem;
+            padding: 4rem 2rem;
         }
-
-        /* Classic Two-Column Alternating Grid */
         .section-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3.5rem;
+            gap: 4rem;
             align-items: center;
-            margin-bottom: 5rem;
+            margin-bottom: 6rem;
         }
-
-        .section-grid.reverse .text-content {
-            order: 2;
+        .section-grid.reverse {
+            direction: rtl;
         }
-
-        .section-grid.reverse .image-content {
-            order: 1;
+        .section-grid.reverse > * {
+            direction: ltr;
         }
-
         .text-content h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--primary-dark);
-            margin-top: 0;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             font-weight: 400;
         }
-
-        .text-content h3 {
-            font-size: 1.25rem;
-            color: var(--accent-gold);
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .text-content p {
-            margin-bottom: 1.1rem;
-            font-size: 1.02rem;
-        }
-
         .image-content img {
             width: 100%;
             height: auto;
             border-radius: 4px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            display: block;
         }
-
         .image-caption {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 0.85rem;
             color: #666;
-            margin-top: 0.6rem;
+            margin-top: 0.5rem;
             font-style: italic;
         }
-
-        /* Simple 2x2 Grid for Regenerative Practices & Team */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .info-card {
-            background: white;
-            padding: 1.75rem;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        .info-card h3 {
-            margin-top: 0;
-            color: var(--primary-dark);
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-card .role-label {
-            font-family: 'Helvetica Neue', sans-serif;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-gold);
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.75rem;
-        }
-
-        .info-card p {
-            margin: 0 0 0.75rem 0;
-            font-size: 0.96rem;
-        }
-
-        .info-card p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Varietal Specs & Quotes */
-        .varietal-box {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .varietal-box h3 {
-            margin-top: 0;
-            color: var(--primary-dark);
-            font-size: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        blockquote {
-            margin: 1rem 0 0 0;
-            padding: 0.75rem 1.25rem;
-            border-left: 3px solid var(--accent-gold);
-            background-color: var(--bg-light);
-            font-style: italic;
-            font-size: 0.95rem;
-            color: #444;
-        }
-
-        /* Map & Expander Section */
-        .map-box {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 1.5rem;
-            margin-bottom: 4rem;
-        }
-
-        #map {
-            width: 100%;
-            height: 460px;
-            border-radius: 4px;
-        }
-
-        details {
-            margin-top: 1.5rem;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 1rem 1.25rem;
-        }
-
-        summary {
-            font-family: 'Helvetica Neue', sans-serif;
-            font-weight: 600;
-            color: var(--primary-dark);
-            cursor: pointer;
-        }
-
-        .table-wrap {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 1rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 540px;
-            background: white;
-            font-size: 0.9rem;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: var(--primary-dark);
-            color: white;
-            font-weight: 500;
-        }
-
-        /* Partners & Footer */
         .partners-section {
             text-align: center;
             background-color: white;
-            padding: 4rem 1.5rem;
-            border-top: 1px solid var(--border-color);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
         }
-
         .partner-logos {
             display: flex;
             justify-content: center;
@@ -265,324 +88,91 @@
             flex-wrap: wrap;
             margin-top: 2rem;
         }
-
         .partner-logos img {
             max-width: 150px;
-            max-height: 70px;
-            width: auto;
             height: auto;
             filter: grayscale(100%);
             transition: filter 0.3s ease;
         }
-
         .partner-logos img:hover {
             filter: grayscale(0%);
         }
-
         .btn {
             display: inline-block;
-            font-family: 'Helvetica Neue', sans-serif;
-            padding: 0.85rem 2rem;
+            padding: 0.8rem 2rem;
             background-color: var(--primary-dark);
             color: white;
             text-decoration: none;
             border-radius: 3px;
             font-weight: 500;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             transition: background-color 0.3s ease;
         }
-
         .btn:hover {
             background-color: var(--accent-gold);
         }
-
-        /* Mobile-Friendly Responsive Rules */
         @media (max-width: 768px) {
-            header {
-                padding: 3.5rem 1.25rem;
-            }
-            header h1 {
-                font-size: 1.85rem;
-            }
-            header p {
-                font-size: 1rem;
-            }
-            .container {
-                padding: 2.5rem 1.25rem;
-            }
-            .section-grid,
-            .info-grid {
+            .section-grid {
                 grid-template-columns: 1fr;
-                gap: 1.75rem;
-                margin-bottom: 3rem;
-            }
-            .section-grid.reverse .text-content {
-                order: 1;
-            }
-            .section-grid.reverse .image-content {
-                order: 2;
-            }
-            .text-content h2 {
-                font-size: 1.65rem;
-            }
-            #map {
-                height: 340px;
-            }
-            .partner-logos {
                 gap: 2rem;
+            }
+            .section-grid.reverse {
+                direction: ltr;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero / Landing Section -->
-    <header id="hero-header">
-        <h1>Flocchini Estate Vineyards</h1>
-        <p>Shaped by over a century of family farming along Petaluma's wind-swept Lakeville corridor, Flocchini Estate Vineyards grows limited-tonnage, cool-climate wine grapes for independent winemakers. Irrigated entirely with surface-captured rainwater and farmed 100% herbicide-free across 26 acres of estate vines.</p>
+    <header>
+        <h1>FLOCCHINI ESTATE</h1>
+        <p>Regenerative Viticulture & Historic Farming in Petaluma, California</p>
     </header>
 
     <div class="container">
-
-        <!-- Viticulture & Breaking the Clay Hardpan -->
-        <section class="section-grid">
-            <div class="text-content">
-                <h2>Breaking the Clay Hardpan</h2>
-                <p>At Flocchini Vineyards, we believe great wine is grown from the subsoil up. The Petaluma Gap's marine winds are matched underground by a dense clay hardpan that restricts root depth and water movement if left untouched.</p>
-                <p>Before a single length of irrigation pipe was laid or a single trellis post was driven, we ran a heavy 6-foot single ripper shank across the entire vineyard footprint—first tearing the ground in a criss-cross grid, then following with a diagonal catty-corner pass to shatter the clay pan completely. As we ripped, we banded gypsum directly into the six-foot cuts to open the clay structure, improve drainage, and unlock the lower mineral strata.</p>
-                <p>That early groundwork gave our vines a completely different start than neighboring properties planted on shallow ground. Our roots dive deep into cooler soil layers, resulting in natural canopy balance, resilience during heat spells, and concentrated fruit.</p>
-            </div>
-            <div class="image-content">
-                <img src="flocchinichardonnay.jpg" onerror="this.onerror=null; this.src='website/flocchinichardonnay.jpg';" alt="Flocchini Estate Chardonnay Block">
-                <div class="image-caption">Old Wente and Robert Young Chardonnay blocks rooted in deep-ripped clay along the Lakeville corridor.</div>
-            </div>
-        </section>
-
-        <!-- 4 Regenerative Pillars -->
-        <h2 style="color: var(--primary-dark); font-weight: 400; font-size: 2rem; margin-bottom: 0.5rem;">Regenerative &amp; Sustainable Farming</h2>
-        <p style="margin-top: 0; margin-bottom: 1.5rem;">Rather than forcing synthetic inputs onto the land, we focus on closed-loop water stewardship and active soil biology across every block.</p>
         
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>A Decade of No-Till Viticulture</h3>
-                <p><strong>Our Stewardship:</strong> Over 10 years ago, we committed to a strict no-till approach across our entire acreage, leaving the soil undisturbed to protect native mycorrhizal fungi and beneficial microbes.</p>
-                <p><strong>Winemaker's Advantage:</strong> Intact soil structure improves water retention, carbon sequestration, and natural nutrient cycling—translating directly into balanced canopies and complex flavor profiles.</p>
-            </div>
-            <div class="info-card">
-                <h3>The Grazing Team: 200 Dorper Sheep</h3>
-                <p><strong>Our Stewardship:</strong> We rotate a resident flock of 200 Dorper hair sheep through the vineyard during dormancy to graze cover crops and winter weeds.</p>
-                <p><strong>Winemaker's Advantage:</strong> As the flock grazes, they cycle organic nutrients back into the topsoil, building diverse soil biology while drastically reducing heavy tractor mowing passes.</p>
-            </div>
-            <div class="info-card">
-                <h3>100% Herbicide-Free (Roundup-Free)</h3>
-                <p><strong>Our Stewardship:</strong> No chemical herbicides, glyphosate, or synthetic weed killers ever touch our vine rows.</p>
-                <p><strong>Winemaker's Advantage:</strong> Cleaner soil yields cleaner juice. Our fruit enters the winery as an uncompromised, chemical-free canvas ideal for native, wild-ferment programs.</p>
-            </div>
-            <div class="info-card">
-                <h3>100% Surface-Captured Rainwater</h3>
-                <p><strong>Our Stewardship:</strong> To protect local aquifers, we do not pump from groundwater tables. Our irrigation relies entirely on winter rainwater collected and stored right on the ranch.</p>
-                <p><strong>Winemaker's Advantage:</strong> Targeted deficit hydration is applied only when strictly necessary, encouraging deep roots, small berries, and natural vine balance.</p>
-            </div>
-        </div>
-
-        <!-- Pinot Noir Image & Clonal Overview -->
-        <section class="section-grid reverse">
-            <div class="text-content">
-                <h2>Clonal Specs &amp; Small-Lot Flexibility</h2>
-                <p>Rooted in rich Adobe and Goldridge clay in the direct path of the Petaluma Gap wind corridor, our blocks benefit from extended hang-time that concentrates phenolics while preserving bright natural acidity.</p>
-                <p>We structure our operations around small-lot flexibility. Whether providing customizable 2-to-5-ton micro-lot allocations for independent winemakers running validation trials, or establishing dedicated block-level contracts, we work closely with buyers to match their cellar goals.</p>
-            </div>
-            <div class="image-content">
-                <img src="pinotnoir.JPG" onerror="this.onerror=null; this.src='website/pinotnoir.JPG';" alt="Flocchini Estate Pinot Noir">
-                <div class="image-caption">Heritage Pinot Noir clones (Pommard, Swan, La Tâche, and 777) in the Petaluma Gap.</div>
-            </div>
-        </section>
-
-        <!-- Varietals & Industry Praise -->
-        <div class="varietal-box">
-            <h3>Chardonnay — ~45 Tons Available</h3>
-            <p><strong>Clonal Selections:</strong> Old Wente (~35 Tons) &bull; Robert Young (~10 Tons)<br>
-            <strong>Profile:</strong> Exceptional natural structure, bright acidity, and a distinct chalky minerality.</p>
-            <blockquote>
-                "Flocchini in the Petaluma Gap (90% of the fruit for this wine) is producing a vibrant Wente selection of Chardonnay, which could be straight from Meursault... It is classy and stunning, always keeping a fresh turn to its original minerality." — <strong>Vivier Wines</strong>
-            </blockquote>
-            <blockquote>
-                "Flocchini Estate fruit anchors the ultra-premium Damaris Reserve Chardonnay program, described as 'most exquisite' and 'the richest Chardonnay in our portfolio.'" — <strong>Landmark Vineyards</strong>
-            </blockquote>
-        </div>
-
-        <div class="varietal-box">
-            <h3>Pinot Noir — Limited Allocations</h3>
-            <p><strong>Clonal Selections:</strong> Pommard (~9 Tons) &bull; Swan (~9 Tons) &bull; La Tâche (~6–10 Tons) &bull; Clone 777 (~3 Tons)<br>
-            <strong>Profile:</strong> Heritage Burgundian selections yielding savory depth, earthiness, and structured red fruit.</p>
-            <blockquote>
-                "A hidden gem... The cooling marine breezes of the Petaluma Gap and the 30-year-old heritage vines at the Flocchini ranch yield a vibrant, complex, and layered profile featuring delicate rose petal aromas and chalky, fine-grained tannins." — <strong>Stéphane Vivier, Winemaker</strong>
-            </blockquote>
-            <blockquote>
-                "A first-class Pinot Noir with electric acidity, bright red fruit transparency, and a refined Burgundian flair. Sourced primarily from the Flocchini Vineyard in the highly sought-after Petaluma Gap AVA, it represents the very best of cool-climate precision." — <strong>Wine Access / The Wine Advocate</strong>
-            </blockquote>
-        </div>
-
-        <div class="varietal-box" style="margin-bottom: 3.5rem;">
-            <h3>Syrah — ~4 Tons Available</h3>
-            <p><strong>Clonal Selections:</strong> Elite Noir Clones<br>
-            <strong>Profile:</strong> Grown in the teeth of the Petaluma Gap wind corridor, maximizing thick skins, cracked pepper spice, and dark fruit tension.</p>
-            <blockquote>
-                "The Lakeville corridor is quickly becoming the epicentre for California's most compelling cool-climate Syrah. Grapes grown here benefit from an unforgiving wind that thickens skins and concentrates phenolics, producing dark-fruited, pepper-laced wines that mirror the great, savory Northern Rhône classics." — <strong>Petaluma Gap Winegrowers Spotlight</strong>
-            </blockquote>
-        </div>
-
-        <!-- Interactive Block Map & Expandable Table -->
-        <div class="map-box">
-            <h2 style="margin-top: 0; color: var(--primary-dark); font-weight: 400;">Estate Block Map &amp; Tonnage Breakdown</h2>
-            <p style="font-size: 0.95rem; color: #555; margin-bottom: 1rem;">Click any block on the map to view varietal, clone, acreage, and estimated tonnage.</p>
-            <div id="map"></div>
-
-            <details open>
-                <summary>Block-by-Block Clonal &amp; Tonnage Table (Blocks 1–12)</summary>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Block</th>
-                                <th>Varietal</th>
-                                <th>Clone</th>
-                                <th>Acreage</th>
-                                <th>Target Yield</th>
-                                <th>Est. Tonnage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Block 1</td><td>Pinot Noir</td><td>La Tâche</td><td>1.6 ac</td><td>2.5 Tons/ac</td><td>4.0 Tons</td></tr>
-                            <tr><td>Block 2</td><td>Pinot Noir</td><td>La Tâche</td><td>1.8 ac</td><td>2.5 Tons/ac</td><td>4.5 Tons</td></tr>
-                            <tr><td>Block 3</td><td>Chardonnay</td><td>Old Wente</td><td>4.0 ac</td><td>2.5 Tons/ac</td><td>10.0 Tons</td></tr>
-                            <tr><td>Block 4</td><td>Pinot Noir</td><td>Clone 777</td><td>1.2 ac</td><td>2.5 Tons/ac</td><td>3.0 Tons</td></tr>
-                            <tr><td>Block 5</td><td>Chardonnay</td><td>Robert Young</td><td>3.8 ac</td><td>2.5 Tons/ac</td><td>9.5 Tons</td></tr>
-                            <tr><td>Block 6</td><td>Syrah</td><td>Noir</td><td>1.6 ac</td><td>2.5 Tons/ac</td><td>4.0 Tons</td></tr>
-                            <tr><td>Block 7</td><td>Pinot Noir</td><td>Swan</td><td>3.6 ac</td><td>2.5 Tons/ac</td><td>9.0 Tons</td></tr>
-                            <tr><td>Block 8</td><td>Pinot Noir</td><td>Pommard</td><td>3.6 ac</td><td>2.5 Tons/ac</td><td>9.0 Tons</td></tr>
-                            <tr><td>Block 9</td><td>Chardonnay</td><td>Old Wente</td><td>1.4 ac</td><td>2.5 Tons/ac</td><td>3.5 Tons</td></tr>
-                            <tr><td>Block 10</td><td>Chardonnay</td><td>Old Wente</td><td>1.2 ac</td><td>2.5 Tons/ac</td><td>3.0 Tons</td></tr>
-                            <tr><td>Block 11</td><td>Chardonnay</td><td>Old Wente</td><td>4.5 ac</td><td>4.0 Tons/ac</td><td>18.0 Tons</td></tr>
-                            <tr><td>Block 12</td><td>Pinot Noir</td><td>777 / Pommard</td><td>0.8 ac</td><td>2.5 Tons/ac</td><td>2.0 Tons</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </details>
-        </div>
-
         <!-- Heritage Section -->
         <section class="section-grid">
             <div class="text-content">
-                <h2>A Century on the Lakeville Ranch</h2>
-                <p>Our estate sits entirely within the historic 1834 boundaries of Rancho Petaluma—General Mariano Guadalupe Vallejo's 66,000-acre land grant. In 1911, a 20-year-old immigrant named Frank Flocchini arrived in California from a small village in Lombardia, Italy. Starting out as a regional share milker, Frank saved relentlessly until he purchased the family's Lakeville ranch on April 16, 1919.</p>
-                <p>When Frank bought the property, some locals openly laughed at the gamble, dismissing the heavy clay ground as fit only for star thistle. Where others saw a barren paddock, Frank saw a future. He returned to Italy to marry Maria, and together they returned to the ranch, raised five children—Madeline (Lena), James, Andrew, Nicholas, and Anna—and built a thriving family dairy.</p>
-                <p>For decades, natural cow manure was spread over the pastures every autumn, quietly building a deep layer of organic richness that later became the foundation for the vineyard blocks brothers Andrew and Nicholas Flocchini planted here.</p>
+                <h2>Our Heritage</h2>
+                <p>The roots of the Flocchini Estate stretch back to April 16, 1919, when Frank and Maria Flocchini first purchased the Lakeville Ranch. For over a century, the land has been shaped by family hands, including Andrew, Nicholas, Anna, and Lena.</p>
+                <p>Today, our operations are guided by a deep respect for that legacy. Our leadership team honors this history while looking to the future: <strong>Andrew Flocchini</strong> serves as our Veteran Viticulturist and Elder Statesman, and <strong>Jordan James</strong> leads as Managing Partner of Fruit Sales and Operations.</p>
             </div>
             <div class="image-content">
-                <img src="nickandrew.jpg" onerror="this.onerror=null; this.src='website/nickandrew.jpg';" alt="Andrew and Nicholas Flocchini">
-                <div class="image-caption" style="margin-bottom: 1.5rem;">Brothers Andrew and the late Nicholas Flocchini in the vineyard.</div>
-                
-                <img src="flocchinifamily.jpeg" onerror="this.onerror=null; this.src='website/flocchinifamily.jpeg';" alt="The Flocchini Family">
-                <div class="image-caption">Founders Frank and Maria Flocchini with children Lena, James, Andrew, Nicholas, and Anna.</div>
+                <img src="website/flocchinifamily.jpeg" alt="The Flocchini Family">
+                <div class="image-caption">Frank, Maria, Andrew, Nicholas, Anna, and Lena Flocchini.</div>
             </div>
         </section>
 
-        <!-- Family Team & Shareholders -->
-        <h2 style="color: var(--primary-dark); font-weight: 400; font-size: 2rem; margin-bottom: 0.5rem;">Meet Our Family Team &amp; Shareholders</h2>
-        <p style="margin-top: 0; margin-bottom: 1.5rem;">Four generations of family stewardship guiding daily viticulture, ranch operations, and winery partnerships.</p>
-
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>Andrew Flocchini</h3>
-                <span class="role-label">Senior Viticulturist &amp; Elder Statesman</span>
-                <p>Anchoring our estate with over 25 years of wine grape growing experience on this land, Andrew is the living memory of our soil. A son of Frank and Maria, he oversees canopy balance, seasonal pruning, and row-by-row quality control across every block.</p>
+        <!-- Viticulture Section -->
+        <section class="section-grid reverse">
+            <div class="text-content">
+                <h2>Regenerative Viticulture</h2>
+                <p>We believe great wine begins with living soil. Across our Chardonnay, Pinot Noir, and Syrah blocks, we have completely eliminated the use of herbicides.</p>
+                <p>Instead, we rely on nature's tools. We practice adaptive multi-paddock grazing, utilizing our flock of Dorper hair sheep for winter weed control. We apply heavy arborist wood-chip mulch and composted sheep manure to build active microbial life in the soil, ensuring our vines thrive naturally.</p>
             </div>
-            <div class="info-card">
-                <h3>Jordan James (Flocchini)</h3>
-                <span class="role-label">Managing Partner — Winery Relations &amp; Operations</span>
-                <p>Great-grandson of our founding pioneers, Jordan bridges the gap between our historic soil and independent winemakers, directing fruit sales, custom block allocations, and harvest logistics.</p>
+            <div class="image-content">
+                <img src="website/flocchinichardonnay.jpg" alt="Flocchini Estate Chardonnay Block">
+                <div class="image-caption">Regenerative farming practices in the Chardonnay Block.</div>
             </div>
-            <div class="info-card">
-                <h3>Elizabeth Flocchini-Curtis</h3>
-                <span class="role-label">Estate Accountant &amp; Compliance</span>
-                <p>A granddaughter of Frank and Maria and a practicing Enrolled Agent (EA), Liz directs the financial backbone of the family business, overseeing accounting, compliance, and long-term stability.</p>
-            </div>
-            <div class="info-card">
-                <h3>Joe Flocchini</h3>
-                <span class="role-label">Farm Operations &amp; Land Logistics</span>
-                <p>A grandson of Frank and Maria, Joe supports daily ranch management and land logistics, working hands-on with the equipment and operational flow that maintain our acreage.</p>
-            </div>
-            <div class="info-card">
-                <h3>James Flocchini</h3>
-                <span class="role-label">Estate Projects &amp; Upgrades</span>
-                <p>A grandson of Frank and Maria, since Nicholas' passing James participates in infrastructure maintenance, property upgrades, and digital initiatives that safeguard our multi-generational legacy.</p>
-            </div>
-            <div class="info-card">
-                <h3>Anna &amp; Lena Flocchini</h3>
-                <span class="role-label">Family Shareholders</span>
-                <p>Daughters of Frank and Maria. Anna has lived her entire life on the family farm as our living bridge to 1919, while Lena supports the business from out of state, keeping the family vision unified.</p>
-            </div>
-            <div class="info-card">
-                <h3>Nicholas Flocchini</h3>
-                <span class="role-label">In Memoriam &amp; Co-Founder</span>
-                <p>Son of Frank and Maria, Nick's lifelong commitment and agricultural wisdom laid the bedrock of our modern vineyard footprint alongside Andrew. We carry forward the exact standards he championed.</p>
-            </div>
-            <div class="info-card">
-                <h3>James Flocchini (d. 2015)</h3>
-                <span class="role-label">In Memoriam &amp; Shareholder</span>
-                <p>Son of Frank and Maria, James was a dedicated shareholder in the family business whose lifelong contribution remains an integral part of our generational footprint.</p>
-            </div>
-        </div>
+        </section>
 
     </div>
 
     <!-- Allocations & Partners -->
     <section class="partners-section">
-        <div class="container" style="padding-top: 0; padding-bottom: 0;">
-            <h2 style="color: var(--primary-dark); font-weight: 400; font-size: 2rem;">Wineries &amp; Fruit Inquiries</h2>
-            <p style="max-width: 680px; margin: 0 auto;">Our fruit is proudly sourced by acclaimed Sonoma and Marin winemakers. To inquire about 2-to-5-ton micro-lots, full-block contracts, or scheduling a vineyard walk, reach out directly.</p>
+        <div class="container">
+            <h2>Fruit Availability & Wine Allocations</h2>
+            <p>Our premium, regeneratively-farmed fruit is proudly sourced by some of the region's finest winemakers. Secure an allocation or purchase directly from our partners.</p>
             
             <div class="partner-logos">
-                <a href="https://www.carpenterwine.com" target="_blank" rel="noopener">
-                    <img src="carpenterwinelogo.jpeg" onerror="this.onerror=null; this.src='website/carpenterwinelogo.jpeg';" alt="Carpenter Wine">
-                </a>
-                <a href="https://www.catchandreleasewines.com" target="_blank" rel="noopener">
-                    <img src="catchandreleaselogo.avif" onerror="this.onerror=null; this.src='website/catchandreleaselogo.avif';" alt="Catch & Release">
-                </a>
-                <a href="https://www.landmarkwine.com" target="_blank" rel="noopener">
-                    <img src="landmarklogo.png" onerror="this.onerror=null; this.src='website/landmarklogo.png';" alt="Landmark Vineyards">
-                </a>
+                <a href="#" target="_blank"><img src="website/ux website/carpenterwinelogo.jpeg" alt="Carpenter Wine"></a>
+                <a href="#" target="_blank"><img src="website/catchandreleaselogo.avif" alt="Catch & Release"></a>
+                <a href="#" target="_blank"><img src="website/landmarklogo.png" alt="Landmark Vineyards"></a>
+                <!-- Add Vivier logo path here once available -->
             </div>
-
-            <a href="mailto:jordan@flocchiniestate.com?subject=Flocchini%20Estate%20Fruit%20Inquiry" class="btn">Contact Jordan James for Fruit Allocations</a>
-            <p class="sans" style="font-size: 0.82rem; color: #777; margin-top: 2.5rem;">7078 Old Lakeville Road #3, Petaluma, CA &bull; Petaluma Gap AVA</p>
         </div>
     </section>
 
-    <script>
-        // Automatically fix header background image path if viewing locally with a 'website/' folder
-        const testHero = new Image();
-        testHero.onload = () => {
-            document.getElementById('hero-header').style.backgroundImage = "linear-gradient(rgba(28, 42, 30, 0.65), rgba(28, 42, 30, 0.75)), url('dormantvine.jpg')";
-        };
-        testHero.onerror = () => {
-            document.getElementById('hero-header').style.backgroundImage = "linear-gradient(rgba(28, 42, 30, 0.65), rgba(28, 42, 30, 0.75)), url('website/dormantvine.jpg')";
-        };
-        testHero.src = 'dormantvine.jpg';
-
-        // Mapbox Initialization
-        mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZGFuajcwMCIsImEiOiJjbXY3bWdoMDYwOHp6MnpxMGRtZmUzOXlnIn0.ux39ckBWCJ-spDT25DJV1g';
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/satellite-streets-v12',
-            center: [-122.5295, 38.2042],
-            zoom: 15.5,
-            pitch: 30,
-            bearing: -12,
-            cooperativeGestures: true
-        });
-        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-    </script>
 </body>
 </html>

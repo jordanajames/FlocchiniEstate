@@ -363,12 +363,12 @@
 
                     <div class="minimal-grid" style="border: none; padding-top: 0; display: block;">
                         <div class="grid-item" style="margin-bottom: 30px;">
-                            <h4>Chardonnay (~51 Tons)</h4>
+                            <h4>Chardonnay (~50 Tons)</h4>
                             <span>Wente & Robert Young</span>
                             <p>Produces a strong natural core, marked by bright acidity and a distinct chalky minerality.</p>
                         </div>
                         <div class="grid-item" style="margin-bottom: 30px;">
-                            <h4>Pinot Noir (~38 Tons)</h4>
+                            <h4>Pinot Noir (~31 Tons)</h4>
                             <span>La Tâche, Pommard, Swan, 777</span>
                             <p>Heritage Burgundian clones that yield great depth, earthiness, and structured red fruit.</p>
                         </div>
@@ -464,7 +464,6 @@
 
     <!-- MAP MODAL OVERLAY -->
     <div id="map-modal" class="map-modal">
-        <!-- Close button moved to top center to avoid blocking Mapbox compass -->
         <button id="close-map-btn" class="close-btn">Close Map ✕</button>
         <div id="satellite-map-layer"></div>
         
@@ -538,24 +537,31 @@
         };
 
         const blockDataMapping = [
-            { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Robert Young", acreage: "2.87", tonnage: "10", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.88", tonnage: "7", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", varietal: "Chardonnay", clone: "Wente", acreage: "1.88", tonnage: "7", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", tonnage: "6", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.32", tonnage: "5", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.55", tonnage: "6", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", tonnage: "4", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", tonnage: "10", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Wente", acreage: "1.72", tonnage: "6", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", varietal: "Chardonnay", clone: "Wente", acreage: "1.64", tonnage: "6", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", varietal: "Pinot Noir", clone: "Swan", acreage: "1.94", tonnage: "8", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "2.03", tonnage: "8", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", varietal: "Syrah", clone: "Syrah Noir", acreage: "1.06", tonnage: "4", soil: "Clear Lake Clay / Reyes Silty Clay" }
+            { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Robert Young", acreage: "2.87", yieldPerAcre: "3.50", tonnage: "10.0", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.88", yieldPerAcre: "3.50", tonnage: "6.5", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", varietal: "Chardonnay", clone: "Wente", acreage: "1.88", yieldPerAcre: "3.75", tonnage: "7.0", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", yieldPerAcre: "3.75", tonnage: "6.0", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.32", yieldPerAcre: "3.75", tonnage: "4.5", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.55", yieldPerAcre: "3.75", tonnage: "5.5", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", yieldPerAcre: "2.50", tonnage: "4.0", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", yieldPerAcre: "3.75", tonnage: "10.0", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Wente", acreage: "1.72", yieldPerAcre: "3.75", tonnage: "6.0", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", varietal: "Chardonnay", clone: "Wente", acreage: "1.64", yieldPerAcre: "3.75", tonnage: "6.0", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", varietal: "Pinot Noir", clone: "Swan", acreage: "1.94", yieldPerAcre: "4.00", tonnage: "7.5", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "2.03", yieldPerAcre: "3.75", tonnage: "7.0", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", varietal: "Syrah", clone: "Syrah Noir", acreage: "1.06", yieldPerAcre: "4.00", tonnage: "4.0", soil: "Clear Lake Clay / Reyes Silty Clay" }
         ];
 
-        rawGeoJSON.features.forEach((feature, index) => {
-            if (blockDataMapping[index]) {
-                feature.properties = blockDataMapping[index];
+        let validBlockCount = 0;
+        rawGeoJSON.features.forEach((feature) => {
+            const coords = feature.geometry.coordinates[0];
+            if (coords.length > 3) {
+                if (blockDataMapping[validBlockCount]) {
+                    feature.properties = blockDataMapping[validBlockCount];
+                    validBlockCount++;
+                }
+            } else {
+                feature.properties = { skip: true };
             }
         });
 
@@ -574,7 +580,7 @@
         let hoveredPolygonId = null;
 
         map.on('load', () => {
-            // ADVANCED 3D TOPOGRAPHY & CONTOURS
+            // ADVANCED 3D TOPOGRAPHY, HILLSHADE & CONTOURS
             map.addSource('mapbox-dem', {
                 'type': 'raster-dem',
                 'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -582,9 +588,23 @@
                 'maxzoom': 14
             });
 
+            // Hillshade layer for exaggerated shadows and depth
+            map.addLayer({
+                'id': 'hillshade-layer',
+                'type': 'hillshade',
+                'source': 'mapbox-dem',
+                'layout': { 'visibility': 'none' },
+                'paint': {
+                    'hillshade-exaggeration': 0.8,
+                    'hillshade-shadow-color': '#111111',
+                    'hillshade-highlight-color': '#ffffff',
+                    'hillshade-accent-color': '#000000'
+                }
+            });
+
             map.addSource('contours', {
-                type: 'vector',
-                url: 'mapbox://mapbox.mapbox-terrain-v2'
+                'type': 'vector',
+                'url': 'mapbox://mapbox.mapbox-terrain-v2'
             });
 
             // Minor Contours (High Detail)
@@ -679,7 +699,8 @@
                         <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Row Range:</strong> <span style="float: right;">${props.rows}</span></div>
                         <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Primary Soil:</strong> <span style="float: right; font-size: 11px; max-width: 150px; text-align: right;">${props.soil}</span></div>
                         <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Planted Area:</strong> <span style="float: right;">${props.acreage} Acres</span></div>
-                        <div style="margin-bottom: 5px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Target Yield:</strong> <span style="float: right;">${props.tonnage} Tons</span></div>
+                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Target Yield / Acre:</strong> <span style="float: right;">${props.yieldPerAcre} Tons</span></div>
+                        <div style="margin-bottom: 5px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Total Est. Tonnage:</strong> <span style="float: right;">${props.tonnage} Tons</span></div>
                     </div>
                 `;
             });
@@ -711,15 +732,15 @@
         topoToggleBtn.addEventListener('click', () => {
             isTopoVisible = !isTopoVisible;
             
-            const topoLayers = ['contour-lines-minor', 'contour-lines-major', 'contour-labels'];
+            const topoLayers = ['hillshade-layer', 'contour-lines-minor', 'contour-lines-major', 'contour-labels'];
             
             if (isTopoVisible) {
-                // Turn on 3D terrain exaggeration and contours
-                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+                // Turn on 3D terrain exaggeration, hillshading, and contours
+                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
                 topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'visible'));
                 
-                // Tilt the map to 60 degrees to show off the 3D slope
-                map.easeTo({ pitch: 60, bearing: -20, duration: 1500 });
+                // Tilt the map to 65 degrees to show off the 3D slope
+                map.easeTo({ pitch: 65, bearing: -20, duration: 1500 });
                 
                 topoToggleBtn.style.background = 'var(--obsidian)';
                 topoToggleBtn.style.color = 'var(--white)';

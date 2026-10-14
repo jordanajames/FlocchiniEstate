@@ -204,13 +204,33 @@
 
         @media (max-width: 900px) {
             section { padding: 60px 0; }
+            /* Reduce padding to give mobile content more breathing room */
+            .container { padding: 0 20px; } 
+            
             .editorial-split, .editorial-split.reverse { flex-direction: column; margin-bottom: 50px; }
             .split-img-wrapper, .split-content { width: 100%; padding: 0; }
             .split-img-wrapper img { margin-bottom: 25px; }
-            .hero h1 { font-size: 40px; }
+            
+            /* Use clamp to allow the title to scale down gracefully on very small screens */
+            .hero h1 { font-size: clamp(32px, 8vw, 40px); }
+            
             header { padding: 15px; flex-direction: column; background: rgba(255,255,255,0.98); }
             .logo { color: var(--obsidian); margin-bottom: 10px; text-shadow: none; }
-            nav a { color: var(--obsidian); margin: 0 10px; text-shadow: none; }
+            
+            /* Add flex-wrap and gap to prevent overlapping nav links */
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                line-height: 1.5;
+            }
+            nav a { color: var(--obsidian); margin: 0; text-shadow: none; }
+            
+            /* Expand buttons for better mobile tap targets */
+            .hero-buttons { flex-direction: column; width: 100%; padding: 0 20px; }
+            .btn-outline { width: 100%; text-align: center; }
+
             .allocation-box { padding: 40px 20px; margin-top: 40px; }
             .minimal-grid { gap: 30px; padding-top: 30px; }
             #accolades blockquote p { font-size: 20px; padding-left: 20px; }

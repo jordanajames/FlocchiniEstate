@@ -60,8 +60,7 @@
 
         .hero { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('vineyardfall.jpg') no-repeat center center/cover; background-attachment: scroll; color: var(--white); padding: 0 20px; }
         .hero h1 { font-size: clamp(32px, 8vw, 40px); letter-spacing: 2px; line-height: 1.1; max-width: 1200px; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .hero-subtitle { font-size: 14px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
-        .hero-intro { font-size: 16px; line-height: 1.6; max-width: 800px; margin: 0 auto 40px auto; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-weight: 400; }
+        .hero-subtitle { font-size: 14px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
 
         .hero-buttons { display: flex; flex-direction: column; width: 100%; gap: 15px; max-width: 400px; margin: 0 auto; }
         .btn-outline { display: inline-block; width: 100%; text-align: center; padding: 14px 36px; border: 1px solid var(--white); color: var(--white); text-transform: uppercase; font-size: 10px; letter-spacing: 3px; text-decoration: none; transition: all 0.4s ease; background: rgba(0,0,0,0.1); cursor: pointer; }
@@ -100,7 +99,8 @@
         .team-category { margin-bottom: 60px; }
         .team-category h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: var(--taupe); border-bottom: 1px solid var(--thin-border); padding-bottom: 15px; margin-bottom: 30px; font-family: 'Montserrat', sans-serif; font-weight: 500; }
         .team-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
-        .team-member h4 { font-size: 22px; margin-bottom: 5px; }
+        .team-member h4 { font-size: 22px; margin-bottom: 2px; }
+        .generation-badge { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #888; margin-bottom: 6px; }
         .team-member span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--obsidian); margin-bottom: 12px; font-weight: 500; }
         .team-member p { color: #444; font-size: 13px; margin: 0; line-height: 1.6; }
 
@@ -224,7 +224,6 @@
     <section class="hero">
         <h1 class="fade-in">Flocchini Estate Vineyards</h1>
         <div class="hero-subtitle fade-in" style="transition-delay: 0.2s;">Exceptional Petaluma Gap Wine Grapes</div>
-        <p class="hero-intro fade-in" style="transition-delay: 0.3s;">Culminating over a century of family farming along Petaluma's wind-swept Lakeville corridor, Flocchini Estate Vineyards delivers exclusive, limited-tonnage, intensely concentrated cool-climate varietals to independent craftsmen. Strictly irrigated with surface-captured rainwater, farmed sustainably and 100% herbicide-free, our just over 25 acres of estate vines stand as a testament to multi-generational stewardship and uncompromising viticultural standards.</p>
         
         <div class="hero-buttons fade-in" style="transition-delay: 0.4s;">
             <a href="#blocks" class="btn-outline">Explore Available Fruit</a>
@@ -253,10 +252,10 @@
                 <div class="split-content">
                     <span class="story-subtitle">The Roots of the Petaluma Gap</span>
                     <h3 style="font-size: 26px; margin-bottom: 15px;">Frank & Maria Flocchini</h3>
-                    <p>Long before our family's arrival, our soil carried a deep agricultural legacy. Our estate sits entirely within the historic 1834 boundaries of Rancho Petaluma—General Mariano Guadalupe Vallejo's sprawling 66,000-acre land grant. As this historic rancho transitioned into early California statehood and was subdivided, these pastures along the wind-swept Lakeville corridor lay waiting for their next chapter.</p>
+                    <p>Long before our family's arrival, our soil carried a deep agricultural legacy. Our estate sits entirely within the historic 1834 boundaries of Rancho Petaluma, General Mariano Guadalupe Vallejo's sprawling 66,000-acre land grant. As this historic rancho transitioned into early California statehood and was subdivided, these pastures along the wind-swept Lakeville corridor lay waiting for their next chapter.</p>
                     <p>In 1911, a 20-year-old immigrant named Frank Flocchini arrived in California from a small village in Lombardia, Italy. Armed with nothing but an unrelenting work ethic, Frank navigated the challenges of a new country, establishing himself first as a regional share milker. Through years of rigorous saving and determination, he achieved his ultimate dream: purchasing the family's Lakeville farm on April 16, 1919.</p>
                     <p>Whether right or wrong, family lore remembers it as a risky gamble. When Frank bought the property, some locals openly laughed at the choice, dismissing it as terrible ground where the only thing that could grow well was star thistle. Nutrient-rich soil was nothing anyone saw in the acreage at the time.</p>
-                    <p>Yet, where others saw a barren paddock, Frank saw a future. He returned to Italy to marry his wife, Maria, and together they returned to the ranch, raised five children, and proved the skeptics wrong. For decades, the property thrived as a traditional family dairy farm. Year after year, the land was meticulously cared for—including the decades of natural cow manure spread over the ground every autumn, quietly building a deep layer of organic richness.</p>
+                    <p>Yet, where others saw a barren paddock, Frank saw a future. He returned to Italy to marry his wife, Maria, and together they returned to the ranch, raised five children, and proved the skeptics wrong. For decades, the property thrived as a traditional family dairy farm. Year after year, the land was meticulously cared for, including the decades of natural cow manure spread over the ground every autumn, quietly building a deep layer of organic richness.</p>
                 </div>
             </div>
         </div>
@@ -278,7 +277,7 @@
                 <div class="split-content">
                     <span class="story-subtitle">The Core Foundation</span>
                     <h3>Breaking the Clay Hardpan</h3>
-                    <p>When our family prepared to transition the historical pastures to premium vineyard acreage, we knew the land possessed extraordinary viticultural potential—but it required a foundational intervention. The Petaluma Gap's intense climate is matched by a challenging, dense subterranean clay hardpan that can easily restrict root development and water movement if left unaddressed.</p>
+                    <p>When our family prepared to transition the historical pastures to premium vineyard acreage, we knew the land possessed extraordinary viticultural potential, but it required a foundational intervention. The Petaluma Gap's intense climate is matched by a challenging, dense subterranean clay hardpan that can easily restrict root development and water movement if left unaddressed.</p>
                     <p>Before a single length of irrigation pipe was laid, a single trellis row hammered in, or a single vine went into the ground, we executed an aggressive, multi-directional soil preparation program to open the clay hardpan.</p>
                     <p>Using a massive 6-foot single shank, we deep-ripped the entire estate matrix. The tractor ran a meticulous footprint: first tearing the ground in a criss-cross pattern and then following with an intensive catty-corner pass to shatter the hardpan completely. During this deep structural opening, gypsum was added directly into the sub-surface cuts to naturally alter the clay structure, accelerate drainage, and permanently unlock the lower mineral strata.</p>
                     <p><strong>The Living Results:</strong> By permanently altering the hardpan down to six feet, we granted our young root systems an immediate, unrestricted path to dive deep into the cooler, lower soil profiles. Today, the difference in vine balance, resilience during hot spells, and flavor concentration is undeniable. Our vines don't struggle against a subterranean wall; they thrive deep within the earth, reflecting the raw, authentic character of the Petaluma Gap.</p>
@@ -311,7 +310,7 @@
         <div class="container">
             <div class="section-header fade-in">
                 <span>Terroir</span>
-                <h2>The Clonal Specs & Block Allocations</h2>
+                <h2>Varietals & Block Allocations</h2>
             </div>
 
             <div class="editorial-split reverse fade-in" style="margin-bottom: 60px;">
@@ -320,24 +319,24 @@
                 </div>
                 <div class="split-content">
                     <p style="margin-bottom: 25px;">Our blocks sit directly along the prestigious, wind-swept Lakeville corridor of the Petaluma Gap AVA. Rooted in rich Adobe and Goldridge clay, our micro-climate maximizes hang-time, yielding small berries with intense flavor concentration and exceptional natural acidity.</p>
-                    <p style="margin-bottom: 25px;">Because we believe this exceptional fruit is best expressed through the lens of focused, artisanal craftsmanship, we intentionally design our vineyard operations around small-lot flexibility. Access our interactive terroir map below to inspect individual block geometry, clone-specific data, and yield targets.</p>
+                    <p style="margin-bottom: 25px;">Because we believe this exceptional fruit is best expressed through the lens of focused, artisanal craftsmanship, we intentionally design our vineyard operations around small-lot flexibility. Access our interactive terroir map below to inspect individual block geometry, vine data, and yield targets.</p>
                     
                     <button id="open-map-btn" class="btn-outline btn-accent" style="margin-bottom: 40px; width: 100%;">Launch Interactive Terroir Map</button>
 
                     <div class="minimal-grid" style="border: none; padding-top: 0; display: block;">
                         <div class="grid-item" style="margin-bottom: 30px;">
-                            <h4>Chardonnay (~51 Tons)</h4>
+                            <h4>Chardonnay (~45 Tons)</h4>
                             <span>Old Wente | Robert Young</span>
                             <p>Delivers incredible natural structural core, marked by bright, crisp acidity and a distinct chalky minerality.</p>
                         </div>
                         <div class="grid-item" style="margin-bottom: 30px;">
-                            <h4>Pinot Noir (~38 Tons)</h4>
+                            <h4>Pinot Noir (~31 Tons)</h4>
                             <span>Pommard | Swan | La Tâche | 777</span>
-                            <p>Deeply complex heritage Burgundian clones that yield exceptional depth, earthiness, and structured red fruit flavor profiles.</p>
+                            <p>Deeply complex heritage Burgundian selections that yield exceptional depth, earthiness, and structured red fruit flavor profiles.</p>
                         </div>
                         <div class="grid-item">
                             <h4>Syrah (~4 Tons)</h4>
-                            <span>Noir Clones</span>
+                            <span>Noir</span>
                             <p>Cultivated in the absolute teeth of the Petaluma Gap wind gap, maximizing savory spice, dark fruit concentration, and brilliant structural tension.</p>
                         </div>
                     </div>
@@ -400,26 +399,31 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <h4>Andrew Flocchini</h4>
+                        <div class="generation-badge">2nd Generation</div>
                         <span>Senior Viticulturist & Elder Statesman</span>
                         <p>Anchoring our estate with over 25 years of definitive wine grape growing knowledge, Andrew is the living memory of our soil. A son of Frank and Maria, he oversees canopy balance, seasonal pruning, and strict row-by-row quality control.</p>
                     </div>
                     <div class="team-member">
                         <h4>Jordan James (Flocchini)</h4>
+                        <div class="generation-badge">4th Generation</div>
                         <span>Winery Relations & Operations</span>
                         <p>Great-grandson of our founding pioneers, Jordan bridges the gap between our historic soil and independent winemakers, directing winery outreach, managing customized fruit contracts, and estate logistics.</p>
                     </div>
                     <div class="team-member">
                         <h4>Elizabeth Flocchini-Curtis</h4>
+                        <div class="generation-badge">3rd Generation</div>
                         <span>Estate Accountant & Compliance</span>
                         <p>A granddaughter of Frank and Maria and a practicing Enrolled Agent (EA), Liz directs the financial backbone of the family business, ensuring meticulous accounting and long-term economic stability.</p>
                     </div>
                     <div class="team-member">
                         <h4>Joe Flocchini</h4>
+                        <div class="generation-badge">3rd Generation</div>
                         <span>Farm Operations & Land Logistics</span>
                         <p>A grandson of Frank and Maria, Joe keeps our agricultural foundation running smoothly, directly engaging with the operational flow and equipment that maintain the health of our acreage.</p>
                     </div>
                     <div class="team-member">
                         <h4>James Flocchini</h4>
+                        <div class="generation-badge">3rd Generation</div>
                         <span>Estate Projects & Upgrades</span>
                         <p>A grandson of Frank and Maria, since Nicholas' passing, James participates in property maintenance, estate upgrades, and digital initiatives to help safeguard our multi-generational legacy.</p>
                     </div>
@@ -431,11 +435,13 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <h4>Lena Flocchini</h4>
+                        <div class="generation-badge">2nd Generation</div>
                         <span>Shareholder</span>
                         <p>Daughter of Frank and Maria, Lena supports the business from out of state. Though physically distant, her dedication to our shared heritage ensures the family vision remains unified across generations.</p>
                     </div>
                     <div class="team-member">
                         <h4>Anna Flocchini</h4>
+                        <div class="generation-badge">2nd Generation</div>
                         <span>Shareholder</span>
                         <p>Daughter of Frank and Maria, Anna has lived her entire life on the family farm. She provides a living bridge to our history, maintaining our deep emotional anchor to this land.</p>
                     </div>
@@ -447,11 +453,13 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <h4>Nicholas Flocchini</h4>
+                        <div class="generation-badge">2nd Generation</div>
                         <span>In Memoriam & Co-Founder</span>
                         <p>Son of Frank and Maria, Nick's lifelong passion, commitment, and agricultural wisdom laid the bedrock of our modern vineyard footprint. We carry forward the exact high standards and vision he championed.</p>
                     </div>
                     <div class="team-member">
                         <h4>James Flocchini</h4>
+                        <div class="generation-badge">2nd Generation</div>
                         <span>In Memoriam & Shareholder</span>
                         <p>Son of Frank and Maria, James was a dedicated shareholder in the family business who passed away in 2015. His historical contribution remains an integral part of our generational footprint.</p>
                     </div>
@@ -478,7 +486,7 @@
             <span id="display-section" style="display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-top: 5px;">Interactive View</span>
             
             <p id="display-desc" style="color: #555; font-size: 14px; margin-top: 15px; margin-bottom: 0; line-height: 1.6;">
-                Tap any highlighted parcel on the satellite view to reveal precise row ranges, clones, soil profiles, and target yield data.
+                Tap any highlighted parcel on the satellite view to reveal precise row ranges, varietal, soil profiles, and target yield data.
             </p>
 
             <button id="topo-toggle" class="btn-outline btn-accent" style="margin-top: 25px; width: 100%; padding: 12px; background: transparent; color: var(--obsidian); border-color: var(--obsidian);">

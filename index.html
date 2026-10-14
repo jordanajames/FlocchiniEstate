@@ -28,7 +28,6 @@
             --alabaster: #f7f6f2;
             --taupe: #8c8279;
             --thin-border: rgba(17, 17, 17, 0.1);
-            --highlight: rgba(140, 130, 121, 0.7);
         }
 
         * { box-sizing: border-box; }
@@ -47,53 +46,19 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .serif {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-            margin: 0;
-        }
+        h1, h2, h3, h4, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 400; margin: 0; }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid var(--thin-border);
-            z-index: 1000;
-            transition: background 0.4s ease, padding 0.4s ease;
-        }
-        
+        header { position: fixed; width: 100%; top: 0; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; background-color: rgba(255, 255, 255, 0.98); border-bottom: 1px solid var(--thin-border); z-index: 1000; transition: background 0.4s ease, padding 0.4s ease; }
         .logo { font-size: 24px; letter-spacing: 2px; text-transform: uppercase; color: var(--obsidian); text-decoration: none; margin-bottom: 10px; cursor: pointer; transition: color 0.4s ease; }
         
         nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; line-height: 1.5; }
         nav a { text-decoration: none; color: var(--obsidian); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; transition: opacity 0.3s ease; }
         nav a:hover { opacity: 0.5; }
 
-        .hero {
-            position: relative;
-            min-height: 100dvh; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('vineyardfall.jpg') no-repeat center center/cover;
-            background-attachment: scroll; 
-            color: var(--white);
-            padding: 0 20px;
-        }
-        
+        .hero { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('vineyardfall.jpg') no-repeat center center/cover; background-attachment: scroll; color: var(--white); padding: 0 20px; }
         .hero h1 { font-size: clamp(32px, 8vw, 40px); letter-spacing: 2px; line-height: 1.1; max-width: 1200px; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); }
         .hero-subtitle { font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 35px; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
 
@@ -122,6 +87,10 @@
         .split-content h3 { font-size: 30px; margin-bottom: 20px; line-height: 1.2; }
         .split-content .story-subtitle { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: var(--taupe); margin-bottom: 8px; }
         .split-content p { color: #555; margin-bottom: 20px; }
+
+        /* Map Section Specific Styles */
+        .map-section-wrapper { position: relative; width: 100%; height: 75vh; min-height: 500px; margin-bottom: 50px; }
+        .map-overlay-card { position: relative; background: rgba(255, 255, 255, 0.98); padding: 30px; width: 100%; border-top: 1px solid var(--thin-border); }
 
         .minimal-grid { display: grid; grid-template-columns: 1fr; gap: 30px; border-top: 1px solid var(--thin-border); padding-top: 30px; }
         .grid-item h4 { font-size: 22px; margin-bottom: 5px; }
@@ -166,6 +135,11 @@
             section { padding: 90px 0; }
             .container { padding: 0 40px; }
             .section-header { margin-bottom: 60px; }
+            
+            /* Floating Map Overlay for Desktop */
+            .map-section-wrapper { height: 80vh; max-height: 800px; margin-bottom: 90px; }
+            .map-overlay-card { position: absolute; bottom: 40px; left: 40px; width: 380px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border-radius: 4px; border-top: none; z-index: 10; padding: 40px; }
+
             .editorial-split { flex-direction: row; align-items: flex-start; justify-content: space-between; margin-bottom: 70px; }
             .editorial-split.reverse { flex-direction: row-reverse; }
             .split-img-wrapper { width: 47%; margin-bottom: 0; }
@@ -241,47 +215,52 @@
         </div>
     </section>
 
+    <!-- NEW DEDICATED FULL-WIDTH MAP SECTION -->
+    <section id="blocks" style="padding: 0; background-color: var(--white); scroll-margin-top: 80px;">
+        <div class="section-header fade-in" style="margin-top: 90px; margin-bottom: 40px;">
+            <span>Terroir & Topography</span>
+            <h2>Interactive Estate Map</h2>
+            <p style="color: var(--taupe); max-width: 600px; margin: 15px auto 0 auto;">Explore our 13 blocks directly in the path of the Petaluma Gap wind.</p>
+        </div>
+
+        <div class="map-section-wrapper fade-in">
+            <!-- Mapbox Container -->
+            <div id="satellite-map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+            
+            <!-- SVG Vector Placeholder (Hidden by default) -->
+            <div id="svg-map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--alabaster); display: flex; justify-content: center; align-items: center; z-index: 2; transition: opacity 0.5s ease; opacity: 0; pointer-events: none;">
+                <p style="color: var(--taupe); letter-spacing: 2px; text-transform: uppercase;">Vector Map Coming Soon</p>
+            </div>
+
+            <!-- Floating Data Panel -->
+            <div class="map-overlay-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                    <div>
+                        <h4 id="display-title" style="font-size: 28px; margin-bottom: 0;">Select a Block</h4>
+                        <span id="display-section" style="display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-top: 5px;">Click map to view</span>
+                    </div>
+                </div>
+                
+                <p id="display-desc" style="color: #555; font-size: 14px; margin: 0; line-height: 1.6;">
+                    Tap any highlighted parcel on the satellite view to reveal precise row ranges, clones, and historical yield data directly from our master inventory.
+                </p>
+
+                <button id="map-toggle" class="btn-outline btn-dark" style="margin-top: 25px; width: 100%; padding: 12px;">
+                    View Vector Map
+                </button>
+            </div>
+        </div>
+    </section>
+
     <section id="farming">
         <div class="container">
-            <div class="section-header fade-in">
-                <span>Viticulture</span>
-                <h2>Farming & Block Allocations</h2>
-                <p style="max-width: 700px; margin: 20px auto 0 auto; color: var(--obsidian); font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic;">"At Flocchini Vineyards, we believe that world-class wine is grown, literally and physically from the ground up."</p>
-            </div>
-            
-            <!-- INTERACTIVE MAP SECTION -->
-            <div id="blocks" class="fade-in" style="margin-bottom: 50px; scroll-margin-top: 100px;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
-                    <h3>Estate Block Map</h3>
-                    <button id="map-toggle" class="btn-outline btn-dark" style="padding: 10px 20px; cursor: pointer; width: auto;">
-                        View Vector Map
-                    </button>
-                </div>
-
-                <div style="position: relative; width: 100%; height: 600px; border-radius: 2px; overflow: hidden; border: 1px solid var(--thin-border);">
-                    <!-- SVG Vector Overlay Placeholder -->
-                    <div id="svg-map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--alabaster); display: flex; justify-content: center; align-items: center; z-index: 1; transition: opacity 0.5s ease; opacity: 0; pointer-events: none;">
-                        <p style="color: var(--taupe); letter-spacing: 2px; text-transform: uppercase;">Vector Map Coming Soon</p>
-                    </div>
-
-                    <!-- Mapbox Satellite Container -->
-                    <div id="satellite-map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;"></div>
-                </div>
-
-                <!-- Dynamic Data Display Panel -->
-                <div id="block-data-display" style="background-color: var(--alabaster); padding: 30px; margin-top: 20px; border-radius: 2px;">
-                    <h4 id="display-title" style="font-size: 26px; margin-bottom: 5px;">Select a Block</h4>
-                    <span id="display-section" style="display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-bottom: 15px;">Interactive Terroir Map</span>
-                    <p id="display-desc" style="color: #555; font-size: 14px; margin: 0;">Click or tap any highlighted polygon on the satellite map above to view the precise row ranges and sector details from our master inventory.</p>
-                </div>
-            </div>
-
             <div class="editorial-split fade-in">
                 <div class="split-img-wrapper uniform-stack">
                     <img src="vineyardsheep1.jpg" alt="Sheep grazing in the vineyard" loading="lazy">
                     <img src="dormantvine.jpg" alt="Ladybug on dormant vine" loading="lazy">
                 </div>
                 <div class="split-content">
+                    <span class="story-subtitle">Stewardship</span>
                     <h3>Regenerative Practices</h3>
                     <p><strong>A Decade of No-Till Viticulture:</strong> By leaving the soil undisturbed for over a decade, we protect the underground networks of mycorrhizal fungi. This undisturbed soil maintains its natural structural integrity, vastly improving water retention, carbon sequestration, and natural nutrient cycling. This biological stability translates directly into balanced vine canopies and complex flavor profiles.</p>
                     <p><strong>Herbicide-Free Soil Armoring:</strong> We never use synthetic herbicides. Instead, we manage the vineyard floor using a combination of targeted Dorper sheep grazing and mechanical mowing. This lets a protective layer of natural mulch accumulate each season. This armor keeps the soil cool, conserves moisture, and allows microbial life to thrive much later into the dry season compared to bare, exposed dirt.</p>
@@ -298,7 +277,6 @@
         </div>
     </section>
 
-    <!-- RESTORED ACCOLADES SECTION -->
     <section id="accolades" class="bg-alabaster">
         <div class="container fade-in">
             <div class="section-header">
@@ -333,7 +311,6 @@
         </div>
     </section>
 
-    <!-- RESTORED FAMILY SECTION -->
     <section id="family">
         <div class="container">
             <div class="section-header fade-in">
@@ -390,7 +367,6 @@
         </div>
     </section>
 
-    <!-- RESTORED WINES SECTION -->
     <section id="wines" class="bg-alabaster">
         <div class="container fade-in">
             <div class="section-header">
@@ -477,39 +453,36 @@
           ]
         };
 
-        // Inject the Master Inventory Data into the GeoJSON properties
         const blockDataMapping = [
-            { id: 1, name: "Block 1", section: "Upper Section", rows: "Rows 1–27" },
-            { id: 2, name: "Block 2", section: "Upper Section", rows: "Rows 28–45" },
-            { id: 3, name: "Block 3", section: "Upper Section", rows: "Rows 46–63" },
-            { id: 4, name: "Block 4", section: "Upper Section", rows: "Rows 64–81" },
-            { id: 5, name: "Block 5", section: "Upper Section", rows: "Rows 82–95" },
-            { id: 6, name: "Block 6", section: "Upper Section", rows: "Rows 96–110" },
-            { id: 7, name: "Block 7", section: "Upper Section", rows: "Rows 111–127" },
-            { id: 8, name: "Block 8", section: "Upper Section", rows: "Rows 128–167" },
-            { id: 9, name: "Block 9", section: "Lower Section", rows: "Rows 1–27" },
-            { id: 10, name: "Block 10", section: "Lower Section", rows: "Rows 28–53" },
-            { id: 11, name: "Block 11", section: "Lower Section", rows: "Rows 54–82" },
-            { id: 12, name: "Block 12", section: "Lower Section", rows: "Rows 83–110" },
-            { id: 13, name: "Block 13", section: "Lower Section", rows: "Rows 111–125" }
+            { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", clone: "Robert Young", acreage: "2.87", tonnage: "10" },
+            { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", clone: "Pommard", acreage: "1.88", tonnage: "7" },
+            { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", clone: "Wente", acreage: "1.88", tonnage: "7" },
+            { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", clone: "Wente & Swan", acreage: "1.77", tonnage: "6" },
+            { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", clone: "Pommard & La Tâche", acreage: "1.32", tonnage: "5" },
+            { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", clone: "La Tâche", acreage: "1.55", tonnage: "6" },
+            { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", clone: "Wente", acreage: "1.77", tonnage: "4" },
+            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", clone: "Wente", acreage: "2.75", tonnage: "10" },
+            { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", clone: "Wente", acreage: "1.72", tonnage: "6" },
+            { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", clone: "Wente & 777", acreage: "1.64", tonnage: "6" },
+            { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", clone: "Wente & Swan", acreage: "1.94", tonnage: "8" },
+            { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", clone: "La Tâche", acreage: "2.03", tonnage: "8" },
+            { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", clone: "Syrah", acreage: "1.06", tonnage: "4" }
         ];
 
-        // Merge properties into the GeoJSON
         rawGeoJSON.features.forEach((feature, index) => {
             if (blockDataMapping[index]) {
                 feature.properties = blockDataMapping[index];
             }
         });
 
-        // --- MAPBOX INITIALIZATION ---
         mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZGFuajcwMCIsImEiOiJjbXY3bWdoMDYwOHp6MnpxMGRtZmUzOXlnIn0.ux39ckBWCJ-spDT25DJV1g'; 
         
         const map = new mapboxgl.Map({
             container: 'satellite-map-layer', 
             style: 'mapbox://styles/mapbox/satellite-v9',
-            center: [-122.5131497, 38.1699164], // Centered roughly on Block 1
+            center: [-122.5131497, 38.1699164], 
             zoom: 16.5,
-            pitch: 45
+            pitch: 0 
         });
 
         map.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -520,10 +493,9 @@
             map.addSource('vineyard-blocks', {
                 'type': 'geojson',
                 'data': rawGeoJSON,
-                'generateId': true // Required for hover state
+                'generateId': true 
             });
 
-            // Draw interactive fill
             map.addLayer({
                 'id': 'block-fills',
                 'type': 'fill',
@@ -534,13 +506,12 @@
                     'fill-opacity': [
                         'case',
                         ['boolean', ['feature-state', 'hover'], false],
-                        0.7, // Opacity when hovered
-                        0.2  // Default Opacity
+                        0.7, 
+                        0.2  
                     ]
                 }
             });
 
-            // Draw crisp outlines
             map.addLayer({
                 'id': 'block-borders',
                 'type': 'line',
@@ -552,7 +523,6 @@
                 }
             });
 
-            // --- INTERACTIVITY ---
             const displayTitle = document.getElementById('display-title');
             const displaySection = document.getElementById('display-section');
             const displayDesc = document.getElementById('display-desc');
@@ -561,7 +531,15 @@
                 const props = e.features[0].properties;
                 displayTitle.innerText = props.name;
                 displaySection.innerText = props.section;
-                displayDesc.innerHTML = `<strong>Row Range:</strong> ${props.rows} <br> <em>Reference master inventory for tiered conversion rates and clonal allocation.</em>`;
+                displayDesc.innerHTML = `
+                    <div style="margin-top: 15px;">
+                        <div style="margin-bottom: 8px;"><strong>Variety & Clone:</strong> <span style="float: right;">${props.clone}</span></div>
+                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Row Range:</strong> <span style="float: right;">${props.rows}</span></div>
+                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Planted Area:</strong> <span style="float: right;">${props.acreage} Acres</span></div>
+                        <div style="margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Target Yield:</strong> <span style="float: right;">${props.tonnage} Tons</span></div>
+                        <em style="font-size: 12px; color: var(--taupe);">Reference master inventory for tiered conversion rates.</em>
+                    </div>
+                `;
             });
 
             map.on('mousemove', 'block-fills', (e) => {
@@ -584,10 +562,8 @@
             });
         });
 
-        // --- MAP TOGGLE BUTTON ---
         const mapToggleBtn = document.getElementById('map-toggle');
         const svgLayer = document.getElementById('svg-map-layer');
-        const satLayer = document.getElementById('satellite-map-layer');
         let isSatellite = true;
 
         mapToggleBtn.addEventListener('click', () => {

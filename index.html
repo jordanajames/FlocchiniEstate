@@ -67,6 +67,8 @@
         .btn-outline:hover { background: var(--white); color: var(--obsidian); }
         .btn-dark { border-color: var(--obsidian); color: var(--obsidian); background: transparent; }
         .btn-dark:hover { background: var(--obsidian); color: var(--white); }
+        .btn-accent { background: var(--obsidian); color: var(--white); border-color: var(--obsidian); }
+        .btn-accent:hover { background: transparent; color: var(--obsidian); }
 
         .scroll-indicator { display: none; }
 
@@ -87,10 +89,6 @@
         .split-content h3 { font-size: 30px; margin-bottom: 20px; line-height: 1.2; }
         .split-content .story-subtitle { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: var(--taupe); margin-bottom: 8px; }
         .split-content p { color: #555; margin-bottom: 20px; }
-
-        /* Map Section Specific Styles */
-        .map-section-wrapper { position: relative; width: 100%; height: 75vh; min-height: 500px; margin-bottom: 50px; }
-        .map-overlay-card { position: relative; background: rgba(255, 255, 255, 0.98); padding: 30px; width: 100%; border-top: 1px solid var(--thin-border); }
 
         .minimal-grid { display: grid; grid-template-columns: 1fr; gap: 30px; border-top: 1px solid var(--thin-border); padding-top: 30px; }
         .grid-item h4 { font-size: 22px; margin-bottom: 5px; }
@@ -116,6 +114,50 @@
         footer a:not(.logo) { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
         footer a:not(.logo):hover { opacity: 0.5; }
 
+        /* Full Screen Map Modal */
+        .map-modal {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999;
+            background-color: var(--alabaster);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .map-modal.open {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            z-index: 10000;
+            background: var(--obsidian);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            font-size: 11px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+        .close-btn:hover { background: #333; }
+        
+        #satellite-map-layer { width: 100%; flex: 1; min-height: 50vh; }
+        
+        .map-overlay-card {
+            background: rgba(255, 255, 255, 1);
+            padding: 30px;
+            width: 100%;
+            border-top: 1px solid var(--thin-border);
+            z-index: 10000;
+            overflow-y: auto;
+        }
+
         @media (min-width: 900px) {
             header { flex-direction: row; justify-content: space-between; padding: 25px 50px; background-color: transparent; border-bottom: none; }
             header.scrolled { background-color: rgba(255, 255, 255, 0.98); padding: 15px 50px; border-bottom: 1px solid var(--thin-border); }
@@ -135,11 +177,6 @@
             section { padding: 90px 0; }
             .container { padding: 0 40px; }
             .section-header { margin-bottom: 60px; }
-            
-            /* Floating Map Overlay for Desktop */
-            .map-section-wrapper { height: 80vh; max-height: 800px; margin-bottom: 90px; }
-            .map-overlay-card { position: absolute; bottom: 40px; left: 40px; width: 380px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border-radius: 4px; border-top: none; z-index: 10; padding: 40px; }
-
             .editorial-split { flex-direction: row; align-items: flex-start; justify-content: space-between; margin-bottom: 70px; }
             .editorial-split.reverse { flex-direction: row-reverse; }
             .split-img-wrapper { width: 47%; margin-bottom: 0; }
@@ -148,6 +185,19 @@
             .allocation-box { padding: 50px; margin-top: 60px; }
             #accolades blockquote p { font-size: 24px; padding-left: 30px; }
             #accolades blockquote span { padding-left: 30px; }
+
+            /* Desktop Map Modal Adjustments */
+            .map-modal.open { display: block; }
+            #satellite-map-layer { height: 100vh; width: 100%; }
+            .map-overlay-card {
+                position: absolute;
+                bottom: 40px; left: 40px;
+                width: 380px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                border-radius: 4px;
+                border-top: none;
+                padding: 40px;
+            }
         }
     </style>
 </head>
@@ -215,45 +265,13 @@
         </div>
     </section>
 
-    <!-- NEW DEDICATED FULL-WIDTH MAP SECTION -->
-    <section id="blocks" style="padding: 0; background-color: var(--white); scroll-margin-top: 80px;">
-        <div class="section-header fade-in" style="margin-top: 90px; margin-bottom: 40px;">
-            <span>Terroir & Topography</span>
-            <h2>Interactive Estate Map</h2>
-            <p style="color: var(--taupe); max-width: 600px; margin: 15px auto 0 auto;">Explore our 13 blocks directly in the path of the Petaluma Gap wind.</p>
-        </div>
-
-        <div class="map-section-wrapper fade-in">
-            <!-- Mapbox Container -->
-            <div id="satellite-map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
-            
-            <!-- SVG Vector Placeholder (Hidden by default) -->
-            <div id="svg-map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--alabaster); display: flex; justify-content: center; align-items: center; z-index: 2; transition: opacity 0.5s ease; opacity: 0; pointer-events: none;">
-                <p style="color: var(--taupe); letter-spacing: 2px; text-transform: uppercase;">Vector Map Coming Soon</p>
-            </div>
-
-            <!-- Floating Data Panel -->
-            <div class="map-overlay-card">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-                    <div>
-                        <h4 id="display-title" style="font-size: 28px; margin-bottom: 0;">Select a Block</h4>
-                        <span id="display-section" style="display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-top: 5px;">Click map to view</span>
-                    </div>
-                </div>
-                
-                <p id="display-desc" style="color: #555; font-size: 14px; margin: 0; line-height: 1.6;">
-                    Tap any highlighted parcel on the satellite view to reveal precise row ranges, clones, and historical yield data directly from our master inventory.
-                </p>
-
-                <button id="map-toggle" class="btn-outline btn-dark" style="margin-top: 25px; width: 100%; padding: 12px;">
-                    View Vector Map
-                </button>
-            </div>
-        </div>
-    </section>
-
     <section id="farming">
         <div class="container">
+            <div class="section-header fade-in">
+                <span>Viticulture</span>
+                <h2>Farming & Block Allocations</h2>
+            </div>
+            
             <div class="editorial-split fade-in">
                 <div class="split-img-wrapper uniform-stack">
                     <img src="vineyardsheep1.jpg" alt="Sheep grazing in the vineyard" loading="lazy">
@@ -264,8 +282,38 @@
                     <h3>Regenerative Practices</h3>
                     <p><strong>A Decade of No-Till Viticulture:</strong> By leaving the soil undisturbed for over a decade, we protect the underground networks of mycorrhizal fungi. This undisturbed soil maintains its natural structural integrity, vastly improving water retention, carbon sequestration, and natural nutrient cycling. This biological stability translates directly into balanced vine canopies and complex flavor profiles.</p>
                     <p><strong>Herbicide-Free Soil Armoring:</strong> We never use synthetic herbicides. Instead, we manage the vineyard floor using a combination of targeted Dorper sheep grazing and mechanical mowing. This lets a protective layer of natural mulch accumulate each season. This armor keeps the soil cool, conserves moisture, and allows microbial life to thrive much later into the dry season compared to bare, exposed dirt.</p>
-                    <p><strong>Biodiversity & Habitat Restoration:</strong> Beyond the vine rows, we are actively restoring the estate's natural ecosystem. By establishing native California oaks, multi-tiered hedgerows, and undertaking riparian creek bank restoration, we support indigenous wildlife and beneficial insect populations. This holistic approach to farming creates a resilient, biodiverse environment that directly contributes to the unique terroir of our fruit.</p>
+                    <p><strong>Biodiversity & Habitat Restoration:</strong> Beyond the vine rows, we are actively restoring the estate's natural ecosystem. By establishing native California oaks, multi-tiered hedgerows, and undertaking riparian creek bank restoration, we support indigenous wildlife and beneficial insect populations.</p>
                     <p><strong>Irrigation & Water Stewardship:</strong> For hydration, we rely entirely on a self-sustaining network of surface-captured rainwater stored on the ranch, protecting local aquifers from depletion.</p>
+                </div>
+            </div>
+
+            <div id="blocks" class="editorial-split reverse fade-in" style="margin-bottom: 0; scroll-margin-top: 100px;">
+                <div class="split-img-wrapper">
+                    <img src="pinotnoir.JPG" alt="Pinot Noir Grapes" loading="lazy">
+                </div>
+                <div class="split-content">
+                    <h3>The Blocks</h3>
+                    <p style="margin-bottom: 30px;">We invite prospective winemakers to review our block layouts and historic yields. Access our interactive terroir map below to inspect individual block geometry, exact row allocations, soil types, and clone-specific data mapped directly to the Petaluma Gap terrain.</p>
+                    
+                    <button id="open-map-btn" class="btn-outline btn-accent" style="margin-bottom: 40px; width: 100%;">Launch Interactive Block Map</button>
+
+                    <div class="minimal-grid" style="border: none; padding-top: 0; display: block;">
+                        <div class="grid-item" style="margin-bottom: 30px;">
+                            <h4>Chardonnay (~51 Tons)</h4>
+                            <span>Wente & Robert Young</span>
+                            <p>Produces a strong natural core, marked by bright acidity and a distinct chalky minerality.</p>
+                        </div>
+                        <div class="grid-item" style="margin-bottom: 30px;">
+                            <h4>Pinot Noir (~38 Tons)</h4>
+                            <span>La Tâche, Pommard, Swan, 777</span>
+                            <p>Heritage Burgundian clones that yield great depth, earthiness, and structured red fruit.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4>Syrah (~4 Tons)</h4>
+                            <span>Noir Clones</span>
+                            <p>Grown directly in the path of the Petaluma Gap wind, maximizing savory spice and dark fruit.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -415,6 +463,24 @@
         <p style="margin-top: 40px; opacity: 0.5;">&copy; 2026 Flocchini Estate, LLC. All Rights Reserved.</p>
     </footer>
 
+    <!-- MAP MODAL OVERLAY -->
+    <div id="map-modal" class="map-modal">
+        <button id="close-map-btn" class="close-btn">Close Map ✕</button>
+        <div id="satellite-map-layer"></div>
+        
+        <div class="map-overlay-card">
+            <h4 id="display-title" style="font-size: 28px; margin-bottom: 0;">Select a Block</h4>
+            <span id="display-section" style="display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-top: 5px;">Interactive View</span>
+            <p id="display-desc" style="color: #555; font-size: 14px; margin-top: 15px; margin-bottom: 0; line-height: 1.6;">
+                Tap any highlighted parcel on the satellite view to reveal precise row ranges, clones, soil profiles, and historical yield data.
+            </p>
+
+            <button id="topo-toggle" class="btn-outline btn-accent" style="margin-top: 25px; width: 100%; padding: 12px; background: transparent; color: var(--obsidian); border-color: var(--obsidian);">
+                Toggle Topography
+            </button>
+        </div>
+    </div>
+
     <script>
         // --- NAV SCROLL EFFECT ---
         window.addEventListener('scroll', () => {
@@ -430,6 +496,22 @@
             });
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // --- MAP MODAL LOGIC ---
+        const mapModal = document.getElementById('map-modal');
+        const openMapBtn = document.getElementById('open-map-btn');
+        const closeMapBtn = document.getElementById('close-map-btn');
+
+        openMapBtn.addEventListener('click', () => {
+            mapModal.classList.add('open');
+            document.body.style.overflow = 'hidden'; 
+            if(map) { setTimeout(() => { map.resize(); }, 100); }
+        });
+
+        closeMapBtn.addEventListener('click', () => {
+            mapModal.classList.remove('open');
+            document.body.style.overflow = '';
+        });
 
         // --- RAW GEOJSON FROM USER ---
         const rawGeoJSON = {
@@ -454,24 +536,31 @@
         };
 
         const blockDataMapping = [
-            { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", clone: "Robert Young", acreage: "2.87", tonnage: "10" },
-            { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", clone: "Pommard", acreage: "1.88", tonnage: "7" },
-            { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", clone: "Wente", acreage: "1.88", tonnage: "7" },
-            { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", clone: "Wente & Swan", acreage: "1.77", tonnage: "6" },
-            { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", clone: "Pommard & La Tâche", acreage: "1.32", tonnage: "5" },
-            { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", clone: "La Tâche", acreage: "1.55", tonnage: "6" },
-            { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", clone: "Wente", acreage: "1.77", tonnage: "4" },
-            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", clone: "Wente", acreage: "2.75", tonnage: "10" },
-            { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", clone: "Wente", acreage: "1.72", tonnage: "6" },
-            { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", clone: "Wente & 777", acreage: "1.64", tonnage: "6" },
-            { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", clone: "Wente & Swan", acreage: "1.94", tonnage: "8" },
-            { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", clone: "La Tâche", acreage: "2.03", tonnage: "8" },
-            { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", clone: "Syrah", acreage: "1.06", tonnage: "4" }
+            { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Robert Young", acreage: "2.87", tonnage: "10", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.88", tonnage: "7", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", varietal: "Chardonnay", clone: "Wente", acreage: "1.88", tonnage: "7", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", tonnage: "6", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.32", tonnage: "5", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.55", tonnage: "6", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", tonnage: "4", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", tonnage: "10", soil: "Huichica Loam / Steinbeck Complex" },
+            { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Wente", acreage: "1.72", tonnage: "6", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", varietal: "Chardonnay", clone: "Wente", acreage: "1.64", tonnage: "6", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", varietal: "Pinot Noir", clone: "Swan", acreage: "1.94", tonnage: "8", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", varietal: "Pinot Noir", clone: "La Tâche", acreage: "2.03", tonnage: "8", soil: "Clear Lake Clay / Reyes Silty Clay" },
+            { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", varietal: "Syrah", clone: "Syrah Noir", acreage: "1.06", tonnage: "4", soil: "Clear Lake Clay / Reyes Silty Clay" }
         ];
 
-        rawGeoJSON.features.forEach((feature, index) => {
-            if (blockDataMapping[index]) {
-                feature.properties = blockDataMapping[index];
+        let validBlockCount = 0;
+        rawGeoJSON.features.forEach((feature) => {
+            const coords = feature.geometry.coordinates[0];
+            if (coords.length > 3) {
+                if (blockDataMapping[validBlockCount]) {
+                    feature.properties = blockDataMapping[validBlockCount];
+                    validBlockCount++;
+                }
+            } else {
+                feature.properties = { skip: true };
             }
         });
 
@@ -490,6 +579,29 @@
         let hoveredPolygonId = null;
 
         map.on('load', () => {
+            // Topography Contour Layer
+            map.addSource('contours', {
+                type: 'vector',
+                url: 'mapbox://mapbox.mapbox-terrain-v2'
+            });
+
+            map.addLayer({
+                'id': 'contour-lines',
+                'type': 'line',
+                'source': 'contours',
+                'source-layer': 'contour',
+                'layout': {
+                    'visibility': 'none',
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#ffffff',
+                    'line-opacity': 0.5,
+                    'line-width': 1
+                }
+            });
+
             map.addSource('vineyard-blocks', {
                 'type': 'geojson',
                 'data': rawGeoJSON,
@@ -500,6 +612,7 @@
                 'id': 'block-fills',
                 'type': 'fill',
                 'source': 'vineyard-blocks',
+                'filter': ['!=', 'skip', true],
                 'layout': {},
                 'paint': {
                     'fill-color': '#8c8279',
@@ -516,6 +629,7 @@
                 'id': 'block-borders',
                 'type': 'line',
                 'source': 'vineyard-blocks',
+                'filter': ['!=', 'skip', true],
                 'layout': {},
                 'paint': {
                     'line-color': '#ffffff',
@@ -529,12 +643,16 @@
 
             map.on('click', 'block-fills', (e) => {
                 const props = e.features[0].properties;
+                if (!props.name) return; 
+                
                 displayTitle.innerText = props.name;
                 displaySection.innerText = props.section;
                 displayDesc.innerHTML = `
                     <div style="margin-top: 15px;">
-                        <div style="margin-bottom: 8px;"><strong>Variety & Clone:</strong> <span style="float: right;">${props.clone}</span></div>
+                        <div style="margin-bottom: 8px;"><strong>Varietal:</strong> <span style="float: right;">${props.varietal}</span></div>
+                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Clone:</strong> <span style="float: right;">${props.clone}</span></div>
                         <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Row Range:</strong> <span style="float: right;">${props.rows}</span></div>
+                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Primary Soil:</strong> <span style="float: right; font-size: 11px; max-width: 150px; text-align: right;">${props.soil}</span></div>
                         <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Planted Area:</strong> <span style="float: right;">${props.acreage} Acres</span></div>
                         <div style="margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Target Yield:</strong> <span style="float: right;">${props.tonnage} Tons</span></div>
                         <em style="font-size: 12px; color: var(--taupe);">Reference master inventory for tiered conversion rates.</em>
@@ -562,20 +680,20 @@
             });
         });
 
-        const mapToggleBtn = document.getElementById('map-toggle');
-        const svgLayer = document.getElementById('svg-map-layer');
-        let isSatellite = true;
+        // Topo Toggle Logic
+        const topoToggleBtn = document.getElementById('topo-toggle');
+        let isTopoVisible = false;
 
-        mapToggleBtn.addEventListener('click', () => {
-            isSatellite = !isSatellite;
-            if (isSatellite) {
-                svgLayer.style.opacity = '0';
-                svgLayer.style.pointerEvents = 'none';
-                mapToggleBtn.innerText = 'View Vector Map';
+        topoToggleBtn.addEventListener('click', () => {
+            isTopoVisible = !isTopoVisible;
+            if (isTopoVisible) {
+                map.setLayoutProperty('contour-lines', 'visibility', 'visible');
+                topoToggleBtn.style.background = 'var(--obsidian)';
+                topoToggleBtn.style.color = 'var(--white)';
             } else {
-                svgLayer.style.opacity = '1';
-                svgLayer.style.pointerEvents = 'auto';
-                mapToggleBtn.innerText = 'View Satellite';
+                map.setLayoutProperty('contour-lines', 'visibility', 'none');
+                topoToggleBtn.style.background = 'transparent';
+                topoToggleBtn.style.color = 'var(--obsidian)';
             }
         });
     </script>

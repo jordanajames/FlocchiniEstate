@@ -247,6 +247,8 @@
                 <div class="split-img-wrapper">
                     <img src="flocchinifamily.jpeg" alt="Flocchini Family Portrait" loading="lazy">
                     <div class="img-caption">Left to right: Maria, Madeline (Lena), James, Andrew, Nicholas, Anna, Frank</div>
+                    <img src="nickandrew.jpg" alt="Andrew Flocchini and Nick Flocchini" loading="lazy">
+                    <div class="img-caption">Andrew (left) and Nick (right)</div>
                 </div>
                 <div class="split-content">
                     <span class="story-subtitle">The Roots of the Petaluma Gap</span>
@@ -393,7 +395,7 @@
         <div class="container fade-in">
             <div class="section-header">
                 <span>Our Family</span>
-                <h2>Meet The Flocchini Estate Family</h2>
+                <h2>Meet The Flocchini Estate Family & Co-Owners</h2>
                 <p style="max-width: 700px; margin: 20px auto 0 auto; color: var(--obsidian); font-family: 'Montserrat', sans-serif; font-size: 15px;">More than a century after Frank and Maria Flocchini established the family ranch, successive generations continue to care for the land and carry forward their agricultural legacy. Today, family members remain directly involved in vineyard management, winery relationships, and the stewardship of Flocchini Estate.</p>
             </div>
             
@@ -434,18 +436,18 @@
             </div>
 
             <div class="team-category">
-                <h3>Family Shareholders</h3>
+                <h3>Family Co-Owners</h3>
                 <div class="team-grid">
                     <div class="team-member">
                         <h4>Madeline (Flocchini) Henning</h4>
                         <div class="generation-badge">2nd Generation</div>
-                        <span>Shareholder</span>
+                        <span>Co-Owner</span>
                         <p>Daughter of Frank and Maria, Lena supports the business from out of state. Though physically distant, her dedication to our shared heritage ensures the family vision remains unified across generations.</p>
                     </div>
                     <div class="team-member">
                         <h4>Anna Flocchini</h4>
                         <div class="generation-badge">2nd Generation</div>
-                        <span>Shareholder</span>
+                        <span>Co-Owner</span>
                         <p>Daughter of Frank and Maria, Anna has lived her entire life on the family farm. She provides a living bridge to our history, maintaining our deep emotional anchor to this land.</p>
                     </div>
                 </div>
@@ -463,8 +465,8 @@
                     <div class="team-member">
                         <h4>James Flocchini</h4>
                         <div class="generation-badge">2nd Generation</div>
-                        <span>Family Shareholder</span>
-                        <p>Son of Frank and Maria, James was a dedicated shareholder in the family business who passed away in 2015. His historical contribution remains an integral part of our generational footprint.</p>
+                        <span>Family Co-Owner</span>
+                        <p>Son of Frank and Maria, James was a dedicated co-owner in the family business who passed away in 2015. His historical contribution remains an integral part of our generational footprint.</p>
                     </div>
                 </div>
             </div>
@@ -519,11 +521,22 @@
         const mapModal = document.getElementById('map-modal');
         const openMapBtn = document.getElementById('open-map-btn');
         const closeMapBtn = document.getElementById('close-map-btn');
+        const topoToggleBtn = document.getElementById('topo-toggle');
+
+        let map = null;
+        let hoveredPolygonId = null;
+        let isTopoVisible = false;
 
         openMapBtn.addEventListener('click', () => {
             mapModal.classList.add('open');
             document.body.style.overflow = 'hidden'; 
-            if(map) { setTimeout(() => { map.resize(); }, 100); }
+            
+            // Wait for modal to be visible before initializing map
+            if (!map) {
+                initMap();
+            } else {
+                setTimeout(() => { map.resize(); }, 100);
+            }
         });
 
         closeMapBtn.addEventListener('click', () => {
@@ -531,237 +544,236 @@
             document.body.style.overflow = '';
         });
 
-        // --- RAW GEOJSON ---
-        const rawGeoJSON = {
-          "type": "FeatureCollection",
-          "features": [
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.511028,38.1699164],[-122.5114696,38.1702922],[-122.5131497,38.1688602],[-122.5126663,38.1685114],[-122.5125331,38.1686303],[-122.511028,38.1699164]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5114878,38.1703055],[-122.5117751,38.1705366],[-122.5134698,38.1690965],[-122.5131669,38.1688733],[-122.5114878,38.1703055]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5117924,38.1705555],[-122.5120821,38.1707902],[-122.513794,38.1693303],[-122.51349,38.1691099],[-122.5117924,38.1705555]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5121032,38.1708015],[-122.5123917,38.1710335],[-122.5141126,38.1695638],[-122.5138093,38.1693432],[-122.5121032,38.1708015]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5124064,38.1710474],[-122.5126265,38.1712241],[-122.5143604,38.1697492],[-122.5141322,38.1695787],[-122.5124064,38.1710474]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5126482,38.1712403],[-122.5128834,38.1714331],[-122.5146374,38.1699477],[-122.5143765,38.1697624],[-122.5126482,38.1712403]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5129032,38.1714454],[-122.5131689,38.1716681],[-122.514928,38.1701757],[-122.5149077,38.1701429],[-122.5146523,38.1699596],[-122.5129032,38.1714454]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5149354,38.1702042],[-122.5148941,38.1703185],[-122.5148609,38.1703976],[-122.5148296,38.1704531],[-122.5147921,38.1705201],[-122.5147674,38.1705668],[-122.5147366,38.1706177],[-122.5146777,38.1707056],[-122.5144534,38.170922],[-122.5143781,38.1710145],[-122.514338,38.1710746],[-122.5143077,38.17113],[-122.51428,38.1711838],[-122.5142626,38.1712285],[-122.5142367,38.1712806],[-122.5142138,38.171332],[-122.5141969,38.1713711],[-122.5141864,38.1714102],[-122.5141752,38.1714449],[-122.5141713,38.1714773],[-122.5141691,38.1715073],[-122.5141709,38.1715363],[-122.5141725,38.1715631],[-122.514169,38.1715938],[-122.5141654,38.1716589],[-122.5141703,38.1716981],[-122.514168,38.1717349],[-122.5141629,38.1717684],[-122.5141609,38.1717907],[-122.5141612,38.1718203],[-122.5141595,38.1718485],[-122.5141581,38.1718795],[-122.5141579,38.1719043],[-122.5141459,38.1719424],[-122.5138922,38.1721585],[-122.513856,38.1721643],[-122.5138162,38.1721649],[-122.5137912,38.1721575],[-122.5137755,38.1721469],[-122.5131869,38.1716808],[-122.5149354,38.1702042]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5127626,38.1684299],[-122.5127692,38.1684522],[-122.5127817,38.1684716],[-122.5127965,38.1684834],[-122.5128131,38.1685001],[-122.5128298,38.1685117],[-122.5129203,38.1685752],[-122.5130809,38.1686938],[-122.5132048,38.168786],[-122.5132242,38.1687972],[-122.5142129,38.1679594],[-122.513715,38.1676492],[-122.5136839,38.1676468],[-122.5127626,38.1684299]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5132392,38.1688092],[-122.5134017,38.1689278],[-122.513689,38.169138],[-122.5147049,38.1682737],[-122.5142282,38.1679674],[-122.5132392,38.1688092]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5137096,38.169147],[-122.5138484,38.1692553],[-122.5140774,38.169425],[-122.5142048,38.1695176],[-122.5152568,38.1686226],[-122.5147232,38.168283],[-122.5137096,38.169147]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5142224,38.1695293],[-122.5145275,38.1697513],[-122.5147176,38.1698847],[-122.5157912,38.1689579],[-122.5152755,38.1686334],[-122.5142224,38.1695293]]] } },
-            { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5158101,38.1689706],[-122.5160166,38.1691026],[-122.5160252,38.1691244],[-122.5149602,38.1700434],[-122.5149351,38.1700369],[-122.5149116,38.1700257],[-122.5147324,38.1698947],[-122.5158101,38.1689706]]] } }
-          ]
-        };
+        function initMap() {
+            // --- RAW GEOJSON ---
+            const rawGeoJSON = {
+              "type": "FeatureCollection",
+              "features": [
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.511028,38.1699164],[-122.5114696,38.1702922],[-122.5131497,38.1688602],[-122.5126663,38.1685114],[-122.5125331,38.1686303],[-122.511028,38.1699164]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5114878,38.1703055],[-122.5117751,38.1705366],[-122.5134698,38.1690965],[-122.5131669,38.1688733],[-122.5114878,38.1703055]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5117924,38.1705555],[-122.5120821,38.1707902],[-122.513794,38.1693303],[-122.51349,38.1691099],[-122.5117924,38.1705555]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5121032,38.1708015],[-122.5123917,38.1710335],[-122.5141126,38.1695638],[-122.5138093,38.1693432],[-122.5121032,38.1708015]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5124064,38.1710474],[-122.5126265,38.1712241],[-122.5143604,38.1697492],[-122.5141322,38.1695787],[-122.5124064,38.1710474]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5126482,38.1712403],[-122.5128834,38.1714331],[-122.5146374,38.1699477],[-122.5143765,38.1697624],[-122.5126482,38.1712403]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5129032,38.1714454],[-122.5131689,38.1716681],[-122.514928,38.1701757],[-122.5149077,38.1701429],[-122.5146523,38.1699596],[-122.5129032,38.1714454]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5149354,38.1702042],[-122.5148941,38.1703185],[-122.5148609,38.1703976],[-122.5148296,38.1704531],[-122.5147921,38.1705201],[-122.5147674,38.1705668],[-122.5147366,38.1706177],[-122.5146777,38.1707056],[-122.5144534,38.170922],[-122.5143781,38.1710145],[-122.514338,38.1710746],[-122.5143077,38.17113],[-122.51428,38.1711838],[-122.5142626,38.1712285],[-122.5142367,38.1712806],[-122.5142138,38.171332],[-122.5141969,38.1713711],[-122.5141864,38.1714102],[-122.5141752,38.1714449],[-122.5141713,38.1714773],[-122.5141691,38.1715073],[-122.5141709,38.1715363],[-122.5141725,38.1715631],[-122.514169,38.1715938],[-122.5141654,38.1716589],[-122.5141703,38.1716981],[-122.514168,38.1717349],[-122.5141629,38.1717684],[-122.5141609,38.1717907],[-122.5141612,38.1718203],[-122.5141595,38.1718485],[-122.5141581,38.1718795],[-122.5141579,38.1719043],[-122.5141459,38.1719424],[-122.5138922,38.1721585],[-122.513856,38.1721643],[-122.5138162,38.1721649],[-122.5137912,38.1721575],[-122.5137755,38.1721469],[-122.5131869,38.1716808],[-122.5149354,38.1702042]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5127626,38.1684299],[-122.5127692,38.1684522],[-122.5127817,38.1684716],[-122.5127965,38.1684834],[-122.5128131,38.1685001],[-122.5128298,38.1685117],[-122.5129203,38.1685752],[-122.5130809,38.1686938],[-122.5132048,38.168786],[-122.5132242,38.1687972],[-122.5142129,38.1679594],[-122.513715,38.1676492],[-122.5136839,38.1676468],[-122.5127626,38.1684299]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5132392,38.1688092],[-122.5134017,38.1689278],[-122.513689,38.169138],[-122.5147049,38.1682737],[-122.5142282,38.1679674],[-122.5132392,38.1688092]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5137096,38.169147],[-122.5138484,38.1692553],[-122.5140774,38.169425],[-122.5142048,38.1695176],[-122.5152568,38.1686226],[-122.5147232,38.168283],[-122.5137096,38.169147]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5142224,38.1695293],[-122.5145275,38.1697513],[-122.5147176,38.1698847],[-122.5157912,38.1689579],[-122.5152755,38.1686334],[-122.5142224,38.1695293]]] } },
+                { "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-122.5158101,38.1689706],[-122.5160166,38.1691026],[-122.5160252,38.1691244],[-122.5149602,38.1700434],[-122.5149351,38.1700369],[-122.5149116,38.1700257],[-122.5147324,38.1698947],[-122.5158101,38.1689706]]] } }
+              ]
+            };
 
-        const blockDataMapping = [
-            { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Robert Young", acreage: "2.87", yieldPerAcre: "3.50", tonnage: "10.05", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.88", yieldPerAcre: "3.50", tonnage: "6.58", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", varietal: "Chardonnay", clone: "Wente", acreage: "1.88", yieldPerAcre: "3.75", tonnage: "7.05", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", varietal: "Pinot Noir", clone: "Swan", acreage: "1.77", yieldPerAcre: "3.50", tonnage: "6.20", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.32", yieldPerAcre: "3.75", tonnage: "4.95", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", varietal: "Pinot Noir", clone: "777", acreage: "1.55", yieldPerAcre: "3.75", tonnage: "5.81", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", yieldPerAcre: "2.50", tonnage: "4.43", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", yieldPerAcre: "2.50", tonnage: "6.88", soil: "Huichica Loam / Steinbeck Complex" },
-            { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Wente", acreage: "1.72", yieldPerAcre: "3.75", tonnage: "6.45", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", varietal: "Chardonnay", clone: "Wente", acreage: "1.64", yieldPerAcre: "3.75", tonnage: "6.15", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.94", yieldPerAcre: "4.00", tonnage: "7.76", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", varietal: "Pinot Noir", clone: "Swan", acreage: "2.03", yieldPerAcre: "3.50", tonnage: "7.11", soil: "Clear Lake Clay / Reyes Silty Clay" },
-            { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", varietal: "Syrah", clone: "Noir", acreage: "1.06", yieldPerAcre: "4.00", tonnage: "4.24", soil: "Clear Lake Clay / Reyes Silty Clay" }
-        ];
+            const blockDataMapping = [
+                { name: "Block 1", section: "Upper Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Robert Young", acreage: "2.87", yieldPerAcre: "3.50", tonnage: "10.05", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 2", section: "Upper Section", rows: "Rows 28–45", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.88", yieldPerAcre: "3.50", tonnage: "6.58", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 3", section: "Upper Section", rows: "Rows 46–63", varietal: "Chardonnay", clone: "Wente", acreage: "1.88", yieldPerAcre: "3.75", tonnage: "7.05", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 4", section: "Upper Section", rows: "Rows 64–81", varietal: "Pinot Noir", clone: "Swan", acreage: "1.77", yieldPerAcre: "3.50", tonnage: "6.20", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 5", section: "Upper Section", rows: "Rows 82–95", varietal: "Pinot Noir", clone: "La Tâche", acreage: "1.32", yieldPerAcre: "3.75", tonnage: "4.95", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 6", section: "Upper Section", rows: "Rows 96–110", varietal: "Pinot Noir", clone: "777", acreage: "1.55", yieldPerAcre: "3.75", tonnage: "5.81", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 7", section: "Upper Section", rows: "Rows 111–127", varietal: "Chardonnay", clone: "Wente", acreage: "1.77", yieldPerAcre: "2.50", tonnage: "4.43", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 8", section: "Upper Section", rows: "Rows 128–167", varietal: "Chardonnay", clone: "Wente", acreage: "2.75", yieldPerAcre: "2.50", tonnage: "6.88", soil: "Huichica Loam / Steinbeck Complex" },
+                { name: "Block 9", section: "Lower Section", rows: "Rows 1–27", varietal: "Chardonnay", clone: "Wente", acreage: "1.72", yieldPerAcre: "3.75", tonnage: "6.45", soil: "Clear Lake Clay / Reyes Silty Clay" },
+                { name: "Block 10", section: "Lower Section", rows: "Rows 28–53", varietal: "Chardonnay", clone: "Wente", acreage: "1.64", yieldPerAcre: "3.75", tonnage: "6.15", soil: "Clear Lake Clay / Reyes Silty Clay" },
+                { name: "Block 11", section: "Lower Section", rows: "Rows 54–82", varietal: "Pinot Noir", clone: "Pommard", acreage: "1.94", yieldPerAcre: "4.00", tonnage: "7.76", soil: "Clear Lake Clay / Reyes Silty Clay" },
+                { name: "Block 12", section: "Lower Section", rows: "Rows 83–110", varietal: "Pinot Noir", clone: "Swan", acreage: "2.03", yieldPerAcre: "3.50", tonnage: "7.11", soil: "Clear Lake Clay / Reyes Silty Clay" },
+                { name: "Block 13", section: "Lower Section", rows: "Rows 111–125", varietal: "Syrah", clone: "Noir", acreage: "1.06", yieldPerAcre: "4.00", tonnage: "4.24", soil: "Clear Lake Clay / Reyes Silty Clay" }
+            ];
 
-        let validBlockCount = 0;
-        rawGeoJSON.features.forEach((feature) => {
-            const coords = feature.geometry.coordinates[0];
-            if (coords.length > 3) {
-                if (blockDataMapping[validBlockCount]) {
-                    feature.properties = blockDataMapping[validBlockCount];
-                    validBlockCount++;
-                }
-            } else {
-                feature.properties = { skip: true };
-            }
-        });
-
-        mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZGFuajcwMCIsImEiOiJjbXY3bWdoMDYwOHp6MnpxMGRtZmUzOXlnIn0.ux39ckBWCJ-spDT25DJV1g'; 
-        
-        const map = new mapboxgl.Map({
-            container: 'satellite-map-layer', 
-            style: 'mapbox://styles/mapbox/satellite-v9',
-            center: [-122.5131497, 38.1699164], 
-            zoom: 16.5,
-            pitch: 0 
-        });
-
-        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
-        let hoveredPolygonId = null;
-
-        map.on('load', () => {
-            map.addSource('mapbox-dem', {
-                'type': 'raster-dem',
-                'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                'tileSize': 512,
-                'maxzoom': 14
-            });
-
-            map.addLayer({
-                'id': 'hillshade-layer',
-                'type': 'hillshade',
-                'source': 'mapbox-dem',
-                'layout': { 'visibility': 'none' },
-                'paint': {
-                    'hillshade-exaggeration': 0.8,
-                    'hillshade-shadow-color': '#111111',
-                    'hillshade-highlight-color': '#ffffff',
-                    'hillshade-accent-color': '#000000'
+            let validBlockCount = 0;
+            rawGeoJSON.features.forEach((feature) => {
+                const coords = feature.geometry.coordinates[0];
+                if (coords.length > 3) {
+                    if (blockDataMapping[validBlockCount]) {
+                        feature.properties = blockDataMapping[validBlockCount];
+                        validBlockCount++;
+                    }
+                } else {
+                    feature.properties = { skip: true };
                 }
             });
 
-            map.addSource('contours', {
-                'type': 'vector',
-                'url': 'mapbox://mapbox.mapbox-terrain-v2'
+            mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZGFuajcwMCIsImEiOiJjbXY3bWdoMDYwOHp6MnpxMGRtZmUzOXlnIn0.ux39ckBWCJ-spDT25DJV1g'; 
+            
+            map = new mapboxgl.Map({
+                container: 'satellite-map-layer', 
+                style: 'mapbox://styles/mapbox/satellite-v9',
+                center: [-122.5131497, 38.1699164], 
+                zoom: 16.5,
+                pitch: 0 
             });
 
-            map.addLayer({
-                'id': 'contour-lines-minor',
-                'type': 'line',
-                'source': 'contours',
-                'source-layer': 'contour',
-                'layout': { 'visibility': 'none', 'line-join': 'round', 'line-cap': 'round' },
-                'paint': { 'line-color': '#ffffff', 'line-opacity': 0.3, 'line-width': 0.5 }
-            });
+            map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-            map.addLayer({
-                'id': 'contour-lines-major',
-                'type': 'line',
-                'source': 'contours',
-                'source-layer': 'contour',
-                'filter': ['==', 'index', 5],
-                'layout': { 'visibility': 'none', 'line-join': 'round', 'line-cap': 'round' },
-                'paint': { 'line-color': '#ffffff', 'line-opacity': 0.8, 'line-width': 1.5 }
-            });
+            map.on('load', () => {
+                map.addSource('mapbox-dem', {
+                    'type': 'raster-dem',
+                    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                    'tileSize': 512,
+                    'maxzoom': 14
+                });
 
-            map.addLayer({
-                'id': 'contour-labels',
-                'type': 'symbol',
-                'source': 'contours',
-                'source-layer': 'contour',
-                'filter': ['==', 'index', 5],
-                'layout': {
-                    'visibility': 'none',
-                    'symbol-placement': 'line',
-                    'text-field': ['concat', ['to-string', ['get', 'ele']], 'm'],
-                    'text-size': 10
-                },
-                'paint': {
-                    'text-color': '#ffffff',
-                    'text-halo-color': '#000000',
-                    'text-halo-width': 1
-                }
-            });
+                map.addLayer({
+                    'id': 'hillshade-layer',
+                    'type': 'hillshade',
+                    'source': 'mapbox-dem',
+                    'layout': { 'visibility': 'none' },
+                    'paint': {
+                        'hillshade-exaggeration': 0.8,
+                        'hillshade-shadow-color': '#111111',
+                        'hillshade-highlight-color': '#ffffff',
+                        'hillshade-accent-color': '#000000'
+                    }
+                });
 
-            map.addSource('vineyard-blocks', {
-                'type': 'geojson',
-                'data': rawGeoJSON,
-                'generateId': true 
-            });
+                map.addSource('contours', {
+                    'type': 'vector',
+                    'url': 'mapbox://mapbox.mapbox-terrain-v2'
+                });
 
-            map.addLayer({
-                'id': 'block-fills',
-                'type': 'fill',
-                'source': 'vineyard-blocks',
-                'layout': {},
-                'paint': {
-                    'fill-color': '#8c8279',
-                    'fill-opacity': [
-                        'case',
-                        ['boolean', ['feature-state', 'hover'], false],
-                        0.7, 
-                        0.2  
-                    ]
-                }
-            });
+                map.addLayer({
+                    'id': 'contour-lines-minor',
+                    'type': 'line',
+                    'source': 'contours',
+                    'source-layer': 'contour',
+                    'layout': { 'visibility': 'none', 'line-join': 'round', 'line-cap': 'round' },
+                    'paint': { 'line-color': '#ffffff', 'line-opacity': 0.3, 'line-width': 0.5 }
+                });
 
-            map.addLayer({
-                'id': 'block-borders',
-                'type': 'line',
-                'source': 'vineyard-blocks',
-                'layout': {},
-                'paint': {
-                    'line-color': '#ffffff',
-                    'line-width': 2
-                }
-            });
+                map.addLayer({
+                    'id': 'contour-lines-major',
+                    'type': 'line',
+                    'source': 'contours',
+                    'source-layer': 'contour',
+                    'filter': ['==', 'index', 5],
+                    'layout': { 'visibility': 'none', 'line-join': 'round', 'line-cap': 'round' },
+                    'paint': { 'line-color': '#ffffff', 'line-opacity': 0.8, 'line-width': 1.5 }
+                });
 
-            const displayTitle = document.getElementById('display-title');
-            const displaySection = document.getElementById('display-section');
-            const displayDesc = document.getElementById('display-desc');
+                map.addLayer({
+                    'id': 'contour-labels',
+                    'type': 'symbol',
+                    'source': 'contours',
+                    'source-layer': 'contour',
+                    'filter': ['==', 'index', 5],
+                    'layout': {
+                        'visibility': 'none',
+                        'symbol-placement': 'line',
+                        'text-field': ['concat', ['to-string', ['get', 'ele']], 'm'],
+                        'text-size': 10
+                    },
+                    'paint': {
+                        'text-color': '#ffffff',
+                        'text-halo-color': '#000000',
+                        'text-halo-width': 1
+                    }
+                });
 
-            map.on('click', 'block-fills', (e) => {
-                const props = e.features[0].properties;
-                if (!props.name) return; 
-                
-                displayTitle.innerText = props.name;
-                displaySection.innerText = props.section;
-                displayDesc.innerHTML = `
-                    <div style="margin-top: 15px;">
-                        <div style="margin-bottom: 8px;"><strong>Varietal:</strong> <span style="float: right;">${props.varietal}</span></div>
-                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Clone:</strong> <span style="float: right;">${props.clone}</span></div>
-                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Row Range:</strong> <span style="float: right;">${props.rows}</span></div>
-                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Primary Soil:</strong> <span style="float: right; font-size: 11px; max-width: 150px; text-align: right;">${props.soil}</span></div>
-                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Planted Area:</strong> <span style="float: right;">${props.acreage} Acres</span></div>
-                        <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Target Yield / Acre:</strong> <span style="float: right;">${props.yieldPerAcre} Tons</span></div>
-                        <div style="margin-bottom: 5px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Total Est. Tonnage:</strong> <span style="float: right;">${props.tonnage} Tons</span></div>
-                    </div>
-                `;
-            });
+                map.addSource('vineyard-blocks', {
+                    'type': 'geojson',
+                    'data': rawGeoJSON,
+                    'generateId': true 
+                });
 
-            map.on('mousemove', 'block-fills', (e) => {
-                map.getCanvas().style.cursor = 'pointer';
-                if (e.features.length > 0) {
+                map.addLayer({
+                    'id': 'block-fills',
+                    'type': 'fill',
+                    'source': 'vineyard-blocks',
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#8c8279',
+                        'fill-opacity': [
+                            'case',
+                            ['boolean', ['feature-state', 'hover'], false],
+                            0.7, 
+                            0.2  
+                        ]
+                    }
+                });
+
+                map.addLayer({
+                    'id': 'block-borders',
+                    'type': 'line',
+                    'source': 'vineyard-blocks',
+                    'layout': {},
+                    'paint': {
+                        'line-color': '#ffffff',
+                        'line-width': 2
+                    }
+                });
+
+                const displayTitle = document.getElementById('display-title');
+                const displaySection = document.getElementById('display-section');
+                const displayDesc = document.getElementById('display-desc');
+
+                map.on('click', 'block-fills', (e) => {
+                    const props = e.features[0].properties;
+                    if (!props.name) return; 
+                    
+                    displayTitle.innerText = props.name;
+                    displaySection.innerText = props.section;
+                    displayDesc.innerHTML = `
+                        <div style="margin-top: 15px;">
+                            <div style="margin-bottom: 8px;"><strong>Varietal:</strong> <span style="float: right;">${props.varietal}</span></div>
+                            <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Clone:</strong> <span style="float: right;">${props.clone}</span></div>
+                            <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Row Range:</strong> <span style="float: right;">${props.rows}</span></div>
+                            <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Primary Soil:</strong> <span style="float: right; font-size: 11px; max-width: 150px; text-align: right;">${props.soil}</span></div>
+                            <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Planted Area:</strong> <span style="float: right;">${props.acreage} Acres</span></div>
+                            <div style="margin-bottom: 8px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Target Yield / Acre:</strong> <span style="float: right;">${props.yieldPerAcre} Tons</span></div>
+                            <div style="margin-bottom: 5px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px;"><strong>Total Est. Tonnage:</strong> <span style="float: right;">${props.tonnage} Tons</span></div>
+                        </div>
+                    `;
+                });
+
+                map.on('mousemove', 'block-fills', (e) => {
+                    map.getCanvas().style.cursor = 'pointer';
+                    if (e.features.length > 0) {
+                        if (hoveredPolygonId !== null) {
+                            map.setFeatureState({ source: 'vineyard-blocks', id: hoveredPolygonId }, { hover: false });
+                        }
+                        hoveredPolygonId = e.features[0].id;
+                        map.setFeatureState({ source: 'vineyard-blocks', id: hoveredPolygonId }, { hover: true });
+                    }
+                });
+
+                map.on('mouseleave', 'block-fills', () => {
+                    map.getCanvas().style.cursor = '';
                     if (hoveredPolygonId !== null) {
                         map.setFeatureState({ source: 'vineyard-blocks', id: hoveredPolygonId }, { hover: false });
                     }
-                    hoveredPolygonId = e.features[0].id;
-                    map.setFeatureState({ source: 'vineyard-blocks', id: hoveredPolygonId }, { hover: true });
+                    hoveredPolygonId = null;
+                });
+            });
+            
+            topoToggleBtn.addEventListener('click', () => {
+                isTopoVisible = !isTopoVisible;
+                
+                const topoLayers = ['hillshade-layer', 'contour-lines-minor', 'contour-lines-major', 'contour-labels'];
+                
+                if (isTopoVisible) {
+                    map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
+                    topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'visible'));
+                    
+                    map.easeTo({ pitch: 65, bearing: -20, duration: 1500 });
+                    
+                    topoToggleBtn.style.background = 'var(--obsidian)';
+                    topoToggleBtn.style.color = 'var(--white)';
+                    topoToggleBtn.innerText = 'Hide Topography';
+                } else {
+                    map.setTerrain(null);
+                    topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'none'));
+                    
+                    map.easeTo({ pitch: 0, bearing: 0, duration: 1500 });
+                    
+                    topoToggleBtn.style.background = 'transparent';
+                    topoToggleBtn.style.color = 'var(--obsidian)';
+                    topoToggleBtn.innerText = 'View 3D Topography & Contours';
                 }
             });
-
-            map.on('mouseleave', 'block-fills', () => {
-                map.getCanvas().style.cursor = '';
-                if (hoveredPolygonId !== null) {
-                    map.setFeatureState({ source: 'vineyard-blocks', id: hoveredPolygonId }, { hover: false });
-                }
-                hoveredPolygonId = null;
-            });
-        });
-
-        const topoToggleBtn = document.getElementById('topo-toggle');
-        let isTopoVisible = false;
-
-        topoToggleBtn.addEventListener('click', () => {
-            isTopoVisible = !isTopoVisible;
-            
-            const topoLayers = ['hillshade-layer', 'contour-lines-minor', 'contour-lines-major', 'contour-labels'];
-            
-            if (isTopoVisible) {
-                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
-                topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'visible'));
-                
-                map.easeTo({ pitch: 65, bearing: -20, duration: 1500 });
-                
-                topoToggleBtn.style.background = 'var(--obsidian)';
-                topoToggleBtn.style.color = 'var(--white)';
-                topoToggleBtn.innerText = 'Hide Topography';
-            } else {
-                map.setTerrain(null);
-                topoLayers.forEach(layer => map.setLayoutProperty(layer, 'visibility', 'none'));
-                
-                map.easeTo({ pitch: 0, bearing: 0, duration: 1500 });
-                
-                topoToggleBtn.style.background = 'transparent';
-                topoToggleBtn.style.color = 'var(--obsidian)';
-                topoToggleBtn.innerText = 'View 3D Topography & Contours';
-            }
-        });
+        }
     </script>
 </body>
 </html>
+```<ElicitationsGroup>
+</ElicitationsGroup>

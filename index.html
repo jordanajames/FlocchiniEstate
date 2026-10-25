@@ -118,21 +118,25 @@
         footer a:not(.logo) { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
         footer a:not(.logo):hover { opacity: 0.5; }
 
-        /* Full Screen Map Modal */
+        /* Full Screen Map Modal - FIXED TO PREVENT 0x0 MAPBOX RENDER BUG */
         .map-modal {
-            display: none; 
+            visibility: hidden;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 9999;
-            background-color: var(--alabaster);
+            background-color: var(--obsidian);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .map-modal.open {
-            display: flex;
-            flex-direction: column;
+            visibility: visible;
+            pointer-events: auto;
             opacity: 1;
         }
+        
         .close-btn {
             position: absolute;
             top: 20px; left: 50%;
@@ -194,7 +198,7 @@
             .accolade-block span { padding-left: 30px; }
 
             /* Desktop Map Modal Adjustments */
-            .map-modal.open { display: block; }
+            .map-modal { display: block; }
             #satellite-map-layer { height: 100vh; width: 100%; }
             .map-overlay-card {
                 position: absolute;
@@ -531,12 +535,16 @@
             mapModal.classList.add('open');
             document.body.style.overflow = 'hidden'; 
             
-            // Wait for modal to be visible before initializing map
-            if (!map) {
-                initMap();
-            } else {
-                setTimeout(() => { map.resize(); }, 100);
-            }
+            // Adding a timeout ensures the browser renders the modal's new "visibility" state 
+            // BEFORE initializing Mapbox. This guarantees Mapbox receives the true screen dimensions
+            // and successfully fetches the raster satellite tiles.
+            setTimeout(() => {
+                if (!map) {
+                    initMap();
+                } else {
+                    map.resize();
+                }
+            }, 100);
         });
 
         closeMapBtn.addEventListener('click', () => {
@@ -775,5 +783,3 @@
     </script>
 </body>
 </html>
-```<ElicitationsGroup>
-</ElicitationsGroup>

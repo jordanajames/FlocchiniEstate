@@ -118,23 +118,26 @@
         footer a:not(.logo) { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
         footer a:not(.logo):hover { opacity: 0.5; }
 
-        /* Full Screen Map Modal - FIXED TO PREVENT 0x0 MAPBOX RENDER BUG */
+        /* Full Screen Map Modal - BULLETPROOF SIZING */
         .map-modal {
-            visibility: hidden;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh;
             z-index: 9999;
             background-color: var(--obsidian);
             opacity: 0;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
         .map-modal.open {
-            visibility: visible;
-            pointer-events: auto;
             opacity: 1;
+            pointer-events: auto;
+        }
+
+        #satellite-map-layer { 
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%; 
         }
         
         .close-btn {
@@ -157,14 +160,15 @@
         }
         .close-btn:hover { background: #333; }
         
-        #satellite-map-layer { width: 100%; flex: 1; min-height: 50vh; }
-        
         .map-overlay-card {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
             background: rgba(255, 255, 255, 1);
             padding: 30px;
-            width: 100%;
             border-top: 1px solid var(--thin-border);
             z-index: 10000;
+            max-height: 50vh;
             overflow-y: auto;
         }
 
@@ -198,12 +202,10 @@
             .accolade-block span { padding-left: 30px; }
 
             /* Desktop Map Modal Adjustments */
-            .map-modal { display: block; }
-            #satellite-map-layer { height: 100vh; width: 100%; }
             .map-overlay-card {
-                position: absolute;
                 bottom: 40px; left: 40px;
                 width: 380px;
+                max-height: calc(100vh - 80px);
                 box-shadow: 0 10px 40px rgba(0,0,0,0.15);
                 border-radius: 4px;
                 border-top: none;
@@ -293,6 +295,7 @@
             <div class="editorial-split fade-in" style="margin-bottom: 0;">
                 <div class="split-img-wrapper uniform-stack">
                     <img src="vineyardsheep1.jpg" alt="Sheep grazing in the vineyard" loading="lazy">
+                    <img src="vineyardrow.jpg" alt="Vineyard rows" loading="lazy">
                 </div>
                 <div class="split-content">
                     <span class="story-subtitle">Stewardship</span>
@@ -535,16 +538,11 @@
             mapModal.classList.add('open');
             document.body.style.overflow = 'hidden'; 
             
-            // Adding a timeout ensures the browser renders the modal's new "visibility" state 
-            // BEFORE initializing Mapbox. This guarantees Mapbox receives the true screen dimensions
-            // and successfully fetches the raster satellite tiles.
-            setTimeout(() => {
-                if (!map) {
-                    initMap();
-                } else {
-                    map.resize();
-                }
-            }, 100);
+            if (!map) {
+                initMap();
+            } else {
+                setTimeout(() => { map.resize(); }, 100);
+            }
         });
 
         closeMapBtn.addEventListener('click', () => {
@@ -783,3 +781,5 @@
     </script>
 </body>
 </html>
+```<ElicitationsGroup>
+</ElicitationsGroup>
